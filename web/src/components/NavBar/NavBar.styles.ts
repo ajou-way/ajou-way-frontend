@@ -10,6 +10,8 @@ export const layout = css({
 
   width: '100%',
   height: '6.5rem',
+
+  bg: '{colors.white}',
 });
 
 export const defaultLink = css({
