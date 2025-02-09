@@ -1,4 +1,4 @@
-import { css } from '../../../styled-system/css';
+import { css } from '../../../../styled-system/css';
 
 export const layout = css({
   display: 'grid',
@@ -32,7 +32,7 @@ export const defaultLink = css({
   },
 
   _active: {
-    bg: '{colors.grey.50}',
+    bg: '{colors.primary.50}',
     color: '{colors.primary.400}',
   },
 });
