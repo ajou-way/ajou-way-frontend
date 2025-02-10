@@ -4,23 +4,7 @@ import { Marker, MarkerType } from '@/pages/BarrierFreeMap/BarrierFreeMap.type';
 
 import useMap from '@/hooks/useMap';
 
-import {
-  AudioDeviceMarker,
-  ElevatorMarker,
-  ImparimentToiletMarker,
-  NoteMarker,
-  RampMarker,
-  SupportOfficeMarker,
-} from '@/assets/markers';
-
-const MARKER_ICON: Record<MarkerType, string> = {
-  elevator: ElevatorMarker,
-  impariment_toilet: ImparimentToiletMarker,
-  ramp: RampMarker,
-  note: NoteMarker,
-  audio_device: AudioDeviceMarker,
-  support_office: SupportOfficeMarker,
-};
+import { MARKER_ICON } from '@/constants/barrierFree';
 
 const useBarrierFreeMap = (defaultMarkers: Marker[]) => {
   const { map, mapRef } = useMap();
