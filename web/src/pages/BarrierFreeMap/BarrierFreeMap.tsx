@@ -1,4 +1,4 @@
-import FilterList from '@/components/BarrierFreeMap/FilterList/FilterList';
+import CategoryList from '@/components/BarrierFreeMap/CategoryList/CategoryList';
 
 import useBarrierFreeMap from '@/hooks/useBarrierFreeMap';
 
@@ -8,12 +8,12 @@ import * as styles from './BarrierFreeMap.styles';
 
 const BarrierFreeMap = () => {
   const { markers } = useBarrierFreeMarkersQuery();
-  const { mapRef } = useBarrierFreeMap(markers);
+  const { mapRef, categories, filterCategories } = useBarrierFreeMap(markers);
 
   return (
     <>
       <div className={styles.listContainer}>
-        <FilterList />
+        <CategoryList categories={categories} filterCategories={filterCategories} />
       </div>
       <div ref={mapRef} className={styles.mapContainer} />
     </>

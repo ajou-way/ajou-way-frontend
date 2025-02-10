@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import type { MarkerType } from '@/pages/BarrierFreeMap/BarrierFreeMap.type';
 
-import * as styles from './FilterList.styles';
+import * as styles from './CategoryList.styles';
 
 const MARKER_TYPE: Record<MarkerType, string> = {
   elevator: '엘리베이터',
@@ -13,20 +13,13 @@ const MARKER_TYPE: Record<MarkerType, string> = {
   support_office: '장애학생지원실',
 };
 
-const FilterList = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isSelected, setIsSelected] = useState<Record<MarkerType, boolean>>({
-    elevator: false,
-    impariment_toilet: false,
-    ramp: false,
-    note: false,
-    audio_device: false,
-    support_office: false,
-  });
+interface CategoryListProps {
+  categories: Record<MarkerType, boolean>;
+  filterCategories: (category: MarkerType) => void;
+}
 
-  const toggleSelected = (key: MarkerType) => {
-    setIsSelected((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
+const CategoryList = ({ categories, filterCategories }: CategoryListProps) => {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className={styles.layout}>
@@ -35,8 +28,8 @@ const FilterList = () => {
           {Object.entries(MARKER_TYPE).map(([key, value]) => (
             <li key={key}>
               <button
-                className={isSelected[key as MarkerType] ? styles.activeButton : styles.defaultButton}
-                onClick={() => toggleSelected(key as MarkerType)}
+                className={categories[key as MarkerType] ? styles.activeButton : styles.defaultButton}
+                onClick={() => filterCategories(key as MarkerType)}
               >
                 {value}
               </button>
@@ -52,4 +45,4 @@ const FilterList = () => {
   );
 };
 
-export default FilterList;
+export default CategoryList;
