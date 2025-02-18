@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "markerType": "elevator",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [127.0444, 37.2844]
+    },
+    "remarks": ""
+  },
+  {
+    "id": 2,
+    "markerType": "impariment_toilet",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [127.0458, 37.2863]
+    },
+    "remarks": ""
+  },
+  {
+    "id": 3,
+    "markerType": "ramp",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [127.045, 37.2852]
+    },
+    "remarks": ""
+  },
+  {
+    "id": 4,
+    "markerType": "note",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [127.0433, 37.2843]
+    },
+    "remarks": ""
+  },
+  {
+    "id": 5,
+    "markerType": "audio_device",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [127.0438, 37.2838]
+    },
+    "remarks": ""
+  },
+  {
+    "id": 6,
+    "markerType": "support_office",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [127.0427, 37.2837]
+    },
+    "remarks": ""
+  }
+]
