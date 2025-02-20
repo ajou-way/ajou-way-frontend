@@ -10,7 +10,7 @@ const useMap = () => {
 
   const initializeMap = (latitude: number, longitude: number) => {
     if (mapRef.current) {
-      const mapOptions = { center: new naver.maps.LatLng(latitude, longitude), zoom: 16 };
+      const mapOptions = { center: new naver.maps.LatLng(latitude, longitude), zoom: 17 };
       const map = new naver.maps.Map(mapRef.current, mapOptions);
 
       addCurrentMarker(map, latitude, longitude);
