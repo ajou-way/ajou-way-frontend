@@ -7,7 +7,7 @@ export const listContainer = css({
 
 export const mapContainer = css({
   width: '100%',
-  height: '100vh',
+  height: 'calc(100vh - 6.5rem)',
 
   overflow: 'hidden',
 });
