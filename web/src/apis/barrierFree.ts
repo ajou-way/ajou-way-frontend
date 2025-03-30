@@ -1,4 +1,4 @@
-import { Marker } from '@/pages/BarrierFreeMap/BarrierFreeMap.type';
+import { Marker } from '@/pages/type';
 
 import fetcher from '@/apis/fetcher';
 

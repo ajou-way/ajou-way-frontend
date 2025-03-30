@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Marker, MarkerType } from '@/pages/BarrierFreeMap/BarrierFreeMap.type';
+import { Marker, MarkerType } from '@/pages/type';
 
 import useMap from '@/hooks/useMap';
 

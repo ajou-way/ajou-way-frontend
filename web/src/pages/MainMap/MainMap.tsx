@@ -5,12 +5,12 @@ import SearchBar from '@/components/MainMap/SearchBar/SearchBar';
 import { useIsOpen } from '@/hooks/_common/useIsOpen';
 import useMainMap from '@/hooks/useMainMap';
 
-import useBarrierFreeMarkersQuery from '@/queries/useBarrierFreeMarkersQuery';
+import { useMarkersQuery } from '@/queries/useMarkersQuery';
 
 import * as styles from './MainMap.styles';
 
 const MainMap = () => {
-  const { markers } = useBarrierFreeMarkersQuery();
+  const { markers } = useMarkersQuery();
   const { mapRef } = useMainMap(markers);
 
   const { isOpen, open } = useIsOpen();

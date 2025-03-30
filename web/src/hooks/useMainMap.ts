@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 
-import { Marker } from '@/pages/BarrierFreeMap/BarrierFreeMap.type';
+import { Marker } from '@/pages/type';
 
 import useMap from '@/hooks/useMap';
 
 import { BuildingMarker } from '@/assets/markers';
 
-const useMainMap = (defaultMarkers: Marker[]) => {
+const useMainMap = (defaultMarkers: Omit<Marker, 'markerType'>[]) => {
   const { map, mapRef } = useMap();
 
   const addMarker = (map: naver.maps.Map, latitude: number, longitude: number) => {
@@ -24,7 +24,7 @@ const useMainMap = (defaultMarkers: Marker[]) => {
     new naver.maps.Marker(markerOptions);
   };
 
-  const initializeMarkers = (map: naver.maps.Map, markerData: Marker[]) => {
+  const initializeMarkers = (map: naver.maps.Map, markerData: Omit<Marker, 'markerType'>[]) => {
     markerData.forEach((marker) => addMarker(map, marker.geometry.coordinates[1], marker.geometry.coordinates[0]));
   };
 

@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "geometry": {
+      "type": "Point",
+      "coordinates": [127.0444, 37.2844]
+    },
+    "remarks": ""
+  },
+  {
+    "id": 2,
+    "geometry": {
+      "type": "Point",
+      "coordinates": [127.0434, 37.2829]
+    },
+    "remarks": ""
+  },
+  {
+    "id": 3,
+    "geometry": {
+      "type": "Point",
+      "coordinates": [127.0451, 37.2829]
+    },
+    "remarks": ""
+  },
+  {
+    "id": 4,
+    "geometry": {
+      "type": "Point",
+      "coordinates": [127.0442, 37.2815]
+    },
+    "remarks": ""
+  },
+  {
+    "id": 5,
+    "geometry": {
+      "type": "Point",
+      "coordinates": [127.0462, 37.2822]
+    },
+    "remarks": ""
+  },
+  {
+    "id": 6,
+    "geometry": {
+      "type": "Point",
+      "coordinates": [127.0476, 37.2821]
+    },
+    "remarks": ""
+  },
+  {
+    "id": 7,
+    "geometry": {
+      "type": "Point",
+      "coordinates": [127.0474, 37.2829]
+    },
+    "remarks": ""
+  }
+]
