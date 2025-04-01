@@ -1,9 +1,8 @@
-import { IoSearchOutline } from 'react-icons/io5';
-
+import CategoryList from '@/components/MainMap/CategoryList/CategoryList';
 import SearchBar from '@/components/MainMap/SearchBar/SearchBar';
 
-import { useIsOpen } from '@/hooks/_common/useIsOpen';
 import useMainMap from '@/hooks/useMainMap';
+import { useMapHeader } from '@/hooks/useMapHeader';
 
 import { useMarkersQuery } from '@/queries/useMarkersQuery';
 
@@ -13,18 +12,22 @@ const MainMap = () => {
   const { markers } = useMarkersQuery();
   const { mapRef } = useMainMap(markers);
 
-  const { isOpen, open } = useIsOpen();
+  const {
+    isListVisible,
+    isSearchBarVisible,
+    isListOpen,
+    isSearchBarOpen,
+    openList,
+    closeList,
+    openSearchBar,
+    closeSearchBar,
+  } = useMapHeader();
 
   return (
     <>
       <div className={styles.layout}>
-        {isOpen ? (
-          <SearchBar />
-        ) : (
-          <button className={styles.searchButton} onClick={open}>
-            <IoSearchOutline size={16} />
-          </button>
-        )}
+        {isListVisible && <CategoryList isOpen={isListOpen} open={openList} close={closeList} />}
+        {isSearchBarVisible && <SearchBar isOpen={isSearchBarOpen} open={openSearchBar} close={closeSearchBar} />}
       </div>
       <div ref={mapRef} className={styles.mapContainer} />
     </>

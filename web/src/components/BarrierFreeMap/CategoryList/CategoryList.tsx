@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { IoCloseOutline } from 'react-icons/io5';
 
-import type { MarkerType } from '@/pages/BarrierFreeMap/BarrierFreeMap.type';
+import { MarkerType } from '@/pages/type';
 
-import CategoryButton from '@/components/BarrierFreeMap/CategoryButton/CategoryButton';
+import CategoryButton from '@/components/_common/CategoryButton/CategoryButton';
 
 import { MARKER_TYPE } from '@/constants/barrierFree';
 

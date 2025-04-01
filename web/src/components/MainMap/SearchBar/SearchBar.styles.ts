@@ -4,6 +4,8 @@ export const layout = css({
   display: 'flex',
   flexDirection: 'column',
   gap: '0.4rem',
+
+  w: '100%',
 });
 
 export const input = css({
@@ -47,5 +49,30 @@ export const item = css({
 
   _active: {
     bg: '{colors.primary.50}',
+  },
+});
+
+export const searchButton = css({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+
+  w: '3rem',
+  h: '3rem',
+  border: '1px solid {colors.primary.500}',
+  rounded: 'full',
+
+  bg: '{colors.white}',
+  color: '{colors.primary.800}',
+
+  cursor: 'pointer',
+  transition: 'all 0.2s',
+
+  _hover: {
+    bg: '{colors.primary.100}',
+  },
+
+  _active: {
+    bg: '{colors.primary.100}',
   },
 });
