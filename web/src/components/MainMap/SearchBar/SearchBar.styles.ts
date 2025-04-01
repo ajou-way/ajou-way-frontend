@@ -5,7 +5,11 @@ export const layout = css({
   flexDirection: 'column',
   gap: '0.4rem',
 
+  position: 'absolute',
+  top: 0,
+
   w: '100%',
+  p: '0 2rem',
 });
 
 export const input = css({
@@ -59,7 +63,8 @@ export const searchButton = css({
 
   w: '3rem',
   h: '3rem',
-  border: '1px solid {colors.primary.500}',
+  m: '0 2rem',
+  border: '1px solid {colors.primary.800}',
   rounded: 'full',
 
   bg: '{colors.white}',

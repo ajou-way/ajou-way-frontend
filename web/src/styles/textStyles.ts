@@ -25,7 +25,7 @@ export const textStyles = defineTextStyles({
   small: {
     value: {
       fontFamily: 'Pretendard Variable',
-      fontWeight: '400',
+      fontWeight: '500',
       fontSize: '1.2rem',
     },
   },

@@ -12,7 +12,7 @@ interface CategoryListProps {
 
 const CategoryList = ({ isOpen, open, close }: CategoryListProps) => {
   return (
-    <div>
+    <div className={styles.layout}>
       {isOpen ? (
         <ul className={styles.buttonList}>
           <li>

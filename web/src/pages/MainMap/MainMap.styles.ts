@@ -1,6 +1,6 @@
 import { css } from '../../../styled-system/css';
 
-export const layout = css({
+export const header = css({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
@@ -10,15 +10,6 @@ export const layout = css({
   zIndex: 1,
 
   w: '100%',
-  p: '0 2rem',
-});
-
-export const container = css({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-
-  w: '100%',
 });
 
 export const mapContainer = css({
@@ -26,4 +17,13 @@ export const mapContainer = css({
   height: 'calc(100vh - 6.5rem)',
 
   overflow: 'hidden',
+});
+
+export const modalContainer = css({
+  position: 'fixed',
+  bottom: '9rem',
+  zIndex: 1,
+
+  w: '100%',
+  p: '0 1rem',
 });

@@ -1,5 +1,9 @@
 import { css } from '../../../../styled-system/css';
 
+export const layout = css({
+  p: '0 2rem',
+});
+
 export const buttonList = css({
   display: 'flex',
   alignItems: 'center',
