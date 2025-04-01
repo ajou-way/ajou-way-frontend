@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import InformationModal from '@/components/_common/InformationModal/InformationModal';
 import CategoryList from '@/components/MainMap/CategoryList/CategoryList';
 import SearchBar from '@/components/MainMap/SearchBar/SearchBar';
@@ -11,11 +13,16 @@ import * as styles from './MainMap.styles';
 
 const MainMap = () => {
   const { markers } = useMarkersQuery();
-  const { mapRef } = useMainMap(markers);
+  const { map, mapRef, initializeMarkers } = useMainMap();
 
   const { isOpen: isListOpen, open: openList, close: closeList } = useIsOpen();
   const { isOpen: isSearchBarOpen, open: openSearchBar, close: closeSearchBar } = useIsOpen();
   const { isOpen: isModalOpen, open: openModal, close: closeModal } = useIsOpen();
+
+  useEffect(() => {
+    if (!map) return;
+    initializeMarkers(map, markers, openModal);
+  }, [map, markers]);
 
   return (
     <>
@@ -24,7 +31,7 @@ const MainMap = () => {
         <SearchBar isOpen={isSearchBarOpen} open={openSearchBar} close={closeSearchBar} />
       </div>
       <div className={styles.modalContainer}>
-        <InformationModal title="팔달관" />
+        <InformationModal isOpen={isModalOpen} close={closeModal} title="팔달관" />
       </div>
       <div ref={mapRef} className={styles.mapContainer} />
     </>
