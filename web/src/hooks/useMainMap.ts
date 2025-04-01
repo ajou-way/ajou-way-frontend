@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 
 import { Marker } from '@/pages/type';
 
-import useMap from '@/hooks/useMap';
+import { useMap } from '@/hooks/useMap';
 
 import { BuildingMarker } from '@/assets/markers';
 
-const useMainMap = (defaultMarkers: Omit<Marker, 'markerType'>[]) => {
+export const useMainMap = (defaultMarkers: Omit<Marker, 'markerType'>[]) => {
   const { map, mapRef } = useMap();
 
   const addMarker = (map: naver.maps.Map, latitude: number, longitude: number) => {
@@ -36,5 +36,3 @@ const useMainMap = (defaultMarkers: Omit<Marker, 'markerType'>[]) => {
 
   return { mapRef };
 };
-
-export default useMainMap;

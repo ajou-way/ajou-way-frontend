@@ -4,7 +4,7 @@ import { CurrentMarker } from '@/assets/markers';
 
 const DEFAULT_CENTER = { latitude: 37.2821, longitude: 127.0463 };
 
-const useMap = () => {
+export const useMap = () => {
   const [map, setMap] = useState<naver.maps.Map | null>(null);
   const mapRef = useRef<HTMLDivElement | null>(null);
 
@@ -40,5 +40,3 @@ const useMap = () => {
 
   return { map, mapRef };
 };
-
-export default useMap;

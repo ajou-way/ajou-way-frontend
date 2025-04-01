@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getBarrierFreeMarkers } from '@/apis/barrierFree';
+import { getBarrierFreeMarkers } from '@/apis/map';
 
-const useBarrierFreeMarkersQuery = () => {
+export const useBarrierFreeMarkersQuery = () => {
   const { data } = useQuery({
     queryKey: ['barrierFreeMarkers'],
     queryFn: getBarrierFreeMarkers,
@@ -10,5 +10,3 @@ const useBarrierFreeMarkersQuery = () => {
 
   return { markers: data?.markers ?? [] };
 };
-
-export default useBarrierFreeMarkersQuery;

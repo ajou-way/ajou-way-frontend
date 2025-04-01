@@ -1,7 +1,7 @@
 import CategoryList from '@/components/MainMap/CategoryList/CategoryList';
 import SearchBar from '@/components/MainMap/SearchBar/SearchBar';
 
-import useMainMap from '@/hooks/useMainMap';
+import { useMainMap } from '@/hooks/useMainMap';
 import { useMapHeader } from '@/hooks/useMapHeader';
 
 import { useMarkersQuery } from '@/queries/useMarkersQuery';

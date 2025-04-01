@@ -1,8 +1,8 @@
 import CategoryList from '@/components/BarrierFreeMap/CategoryList/CategoryList';
 
-import useBarrierFreeMap from '@/hooks/useBarrierFreeMap';
+import { useBarrierFreeMap } from '@/hooks/useBarrierFreeMap';
 
-import useBarrierFreeMarkersQuery from '@/queries/useBarrierFreeMarkersQuery';
+import { useBarrierFreeMarkersQuery } from '@/queries/useBarrierFreeMarkersQuery';
 
 import * as styles from './BarrierFreeMap.styles';
 
