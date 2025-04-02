@@ -35,7 +35,20 @@ export const useMap = () => {
   };
 
   useEffect(() => {
-    initializeMap(DEFAULT_CENTER.latitude, DEFAULT_CENTER.longitude);
+    if (!navigator.geolocation) {
+      initializeMap(DEFAULT_CENTER.latitude, DEFAULT_CENTER.longitude);
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        initializeMap(position.coords.latitude, position.coords.longitude);
+      },
+      (error) => {
+        console.error(error.message);
+        initializeMap(DEFAULT_CENTER.latitude, DEFAULT_CENTER.longitude);
+      }
+    );
   }, []);
 
   return { map, mapRef };
