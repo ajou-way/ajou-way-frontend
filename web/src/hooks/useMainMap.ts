@@ -1,5 +1,3 @@
-import { Marker } from '@/pages/type';
-
 import { useMap } from '@/hooks/useMap';
 
 import { BuildingMarker } from '@/assets/markers';
@@ -23,11 +21,5 @@ export const useMainMap = () => {
     naver.maps.Event.addListener(marker, 'click', onClick);
   };
 
-  const initializeMarkers = (map: naver.maps.Map, markerData: Omit<Marker, 'markerType'>[], onClick: () => void) => {
-    markerData.forEach((marker) =>
-      addMarker(map, marker.geometry.coordinates[1], marker.geometry.coordinates[0], onClick)
-    );
-  };
-
-  return { map, mapRef, initializeMarkers };
+  return { map, mapRef, addMarker };
 };
