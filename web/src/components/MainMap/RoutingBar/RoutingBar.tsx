@@ -1,20 +1,30 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { LuArrowUpDown } from 'react-icons/lu';
 
 import { useBackdropClick } from '@/hooks/_common/useBackdropClick';
 import { useIsOpen } from '@/hooks/_common/useIsOpen';
 
-import * as styles from './RoutingSearchBar.styles';
+import * as styles from './RoutingBar.styles';
 
 const SEARCH_DATA = ['다산관', '연암관', '원천관', '팔달관', '제1학생회관', '제2학생회관']; // TODO: 추후 API 대체 필요
 
-const RoutingSearchBar = () => {
+interface RoutingBarProps {
+  initialDeparture: string;
+  isOpen: boolean;
+  close: () => void;
+}
+
+const RoutingBar = ({ initialDeparture, isOpen, close }: RoutingBarProps) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const [departure, setDeparture] = useState('');
   const [arrival, setArrival] = useState('');
 
-  const { isOpen, open, close } = useIsOpen();
+  useEffect(() => {
+    setDeparture(initialDeparture);
+  }, [initialDeparture]);
+
+  const { isOpen: isListOpen, open: openList, close: closeList } = useIsOpen();
 
   useBackdropClick(ref, close);
 
@@ -22,6 +32,8 @@ const RoutingSearchBar = () => {
     setDeparture(arrival);
     setArrival(departure);
   };
+
+  if (!isOpen) return null;
 
   return (
     <div ref={ref} className={styles.layout}>
@@ -34,7 +46,7 @@ const RoutingSearchBar = () => {
           placeholder="검색어를 입력하세요."
           value={departure}
           onChange={(e) => setDeparture(e.target.value)}
-          onClick={open}
+          onClick={openList}
         />
         <hr className={styles.line} />
         <input
@@ -42,13 +54,13 @@ const RoutingSearchBar = () => {
           placeholder="검색어를 입력하세요."
           value={arrival}
           onChange={(e) => setArrival(e.target.value)}
-          onClick={open}
+          onClick={openList}
         />
       </div>
-      {isOpen && (
+      {isListOpen && (
         <ul className={styles.list}>
           {SEARCH_DATA.map((item) => (
-            <li key={item} className={styles.item} onClick={close}>
+            <li key={item} className={styles.item} onClick={closeList}>
               {item}
             </li>
           ))}
@@ -58,4 +70,4 @@ const RoutingSearchBar = () => {
   );
 };
 
-export default RoutingSearchBar;
+export default RoutingBar;
