@@ -50,7 +50,7 @@ const MainMap = () => {
     <>
       <div className={styles.header}>
         <CategoryList isOpen={isListOpen} open={openList} close={closeList} />
-        <SearchBar isOpen={isSearchBarOpen} open={openSearchBar} close={closeSearchBar} />
+        <SearchBar onItemClick={handleOpenModal} isOpen={isSearchBarOpen} open={openSearchBar} close={closeSearchBar} />
         <RoutingBar initialDeparture={departure} isOpen={isRoutingBarOpen} close={closeRoutingBar} />
       </div>
       <div className={styles.modalContainer}>

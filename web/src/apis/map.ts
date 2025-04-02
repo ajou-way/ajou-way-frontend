@@ -13,3 +13,7 @@ export const getMarkerDetail = async (id: number) => {
 export const getBarrierFreeMarkers = async () => {
   return await fetcher.get<{ markers: Marker[] }>({ endpoint: '/markers' });
 };
+
+export const getAutoCompleteResults = async (keyword: string) => {
+  return await fetcher.get<{ results: MarkerDetail[] }>({ endpoint: `/search/building?q=${keyword}` });
+};

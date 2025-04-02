@@ -22,4 +22,12 @@ export const handlers = [
     const { id } = params;
     return HttpResponse.json({ detail: campusDetailData.find((v) => v.id === Number(id)) });
   }),
+
+  // GET - 건물 이름 자동 완성
+  http.get(`${API_URL}/search/building`, ({ request }) => {
+    const { searchParams } = new URL(request.url);
+    const query = searchParams.get('q')?.toLowerCase() || '';
+
+    return HttpResponse.json({ results: campusDetailData.filter((v) => v.name.toLowerCase().includes(query)) });
+  }),
 ];
