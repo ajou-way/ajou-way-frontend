@@ -1,4 +1,4 @@
-import { MarkerType } from '@/pages/BarrierFreeMap/BarrierFreeMap.type';
+import { MarkerType } from '@/pages/type';
 
 import {
   AudioDeviceMarker,

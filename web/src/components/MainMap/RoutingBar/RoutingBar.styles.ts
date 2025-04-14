@@ -4,6 +4,12 @@ export const layout = css({
   display: 'flex',
   flexDirection: 'column',
   gap: '0.4rem',
+
+  position: 'absolute',
+  top: 0,
+
+  w: '100%',
+  p: '0 2rem',
 });
 
 export const inputContainer = css({
@@ -76,7 +82,7 @@ export const changeButton = css({
 
   position: 'absolute',
   top: '50%',
-  transform: 'translate(-50%, -50%)',
+  transform: 'translate(0, -50%)',
 
   w: '3rem',
   h: '3rem',

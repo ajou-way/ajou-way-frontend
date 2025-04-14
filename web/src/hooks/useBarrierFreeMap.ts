@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { Marker, MarkerType } from '@/pages/BarrierFreeMap/BarrierFreeMap.type';
+import { Marker, MarkerType } from '@/pages/type';
 
-import useMap from '@/hooks/useMap';
+import { useMap } from '@/hooks/useMap';
 
 import { MARKER_ICON } from '@/constants/barrierFree';
 
-const useBarrierFreeMap = (defaultMarkers: Marker[]) => {
+export const useBarrierFreeMap = (defaultMarkers: Marker[]) => {
   const { map, mapRef } = useMap();
 
   const [markers, setMarkers] = useState<naver.maps.Marker[]>([]);
@@ -75,5 +75,3 @@ const useBarrierFreeMap = (defaultMarkers: Marker[]) => {
 
   return { map, mapRef, categories, filterCategories };
 };
-
-export default useBarrierFreeMap;

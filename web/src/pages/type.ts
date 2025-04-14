@@ -9,3 +9,8 @@ export interface Marker {
   };
   remarks: string;
 }
+
+export interface MarkerDetail {
+  id: number;
+  name: string;
+}

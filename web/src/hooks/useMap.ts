@@ -4,7 +4,7 @@ import { CurrentMarker } from '@/assets/markers';
 
 const DEFAULT_CENTER = { latitude: 37.2821, longitude: 127.0463 };
 
-const useMap = () => {
+export const useMap = () => {
   const [map, setMap] = useState<naver.maps.Map | null>(null);
   const mapRef = useRef<HTMLDivElement | null>(null);
 
@@ -35,10 +35,21 @@ const useMap = () => {
   };
 
   useEffect(() => {
-    initializeMap(DEFAULT_CENTER.latitude, DEFAULT_CENTER.longitude);
+    if (!navigator.geolocation) {
+      initializeMap(DEFAULT_CENTER.latitude, DEFAULT_CENTER.longitude);
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        initializeMap(position.coords.latitude, position.coords.longitude);
+      },
+      (error) => {
+        console.error(error.message);
+        initializeMap(DEFAULT_CENTER.latitude, DEFAULT_CENTER.longitude);
+      }
+    );
   }, []);
 
   return { map, mapRef };
 };
-
-export default useMap;

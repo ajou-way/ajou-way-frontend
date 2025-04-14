@@ -1,32 +1,65 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import { IoSearchOutline } from 'react-icons/io5';
 
 import { useBackdropClick } from '@/hooks/_common/useBackdropClick';
 import { useIsOpen } from '@/hooks/_common/useIsOpen';
 
+import { useAutoCompleteResultsQuery } from '@/queries/useAutoCompleteResultsQuery';
+
 import * as styles from './SearchBar.styles';
 
-const SEARCH_DATA = ['다산관', '연암관', '원천관', '팔달관', '제1학생회관', '제2학생회관']; // TODO: 추후 API 대체 필요
+interface SearchBarProps {
+  onItemClick: (id: number) => void;
+  isOpen: boolean;
+  open: () => void;
+  close: () => void;
+}
 
-const SearchBar = () => {
+const SearchBar = ({ onItemClick, isOpen, open, close }: SearchBarProps) => {
   const ref = useRef<HTMLDivElement>(null);
 
-  const { isOpen, open, close } = useIsOpen();
+  const [value, setValue] = useState('');
 
-  useBackdropClick(ref, close);
+  const { isOpen: isListOpen, open: openList, close: closeList } = useIsOpen();
 
-  return (
+  const { results } = useAutoCompleteResultsQuery(value);
+
+  const handleClose = () => {
+    setValue('');
+    closeList();
+    close();
+  };
+
+  const handleItemClick = (id: number) => {
+    onItemClick(id);
+    handleClose();
+  };
+
+  useBackdropClick(ref, handleClose);
+
+  return isOpen ? (
     <div ref={ref} className={styles.layout}>
-      <input className={styles.input} placeholder="검색어를 입력하세요." onClick={open} />
-      {isOpen && (
+      <input
+        className={styles.input}
+        placeholder="검색어를 입력하세요."
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        onClick={openList}
+      />
+      {results && isListOpen && (
         <ul className={styles.list}>
-          {SEARCH_DATA.map((item) => (
-            <li key={item} className={styles.item} onClick={close}>
-              {item}
+          {results.map((item) => (
+            <li key={item.id} className={styles.item} onClick={() => handleItemClick(item.id)}>
+              {item.name}
             </li>
           ))}
         </ul>
       )}
     </div>
+  ) : (
+    <button className={styles.searchButton} onClick={open}>
+      <IoSearchOutline size={16} />
+    </button>
   );
 };
 

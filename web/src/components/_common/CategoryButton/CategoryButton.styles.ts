@@ -2,7 +2,7 @@ import { css } from '../../../../styled-system/css';
 
 export const defaultButton = css({
   p: '0.4rem 1.4rem',
-  border: '1px solid {colors.primary.500}',
+  border: '1px solid {colors.primary.800}',
   rounded: 'full',
 
   bg: '{colors.white}',
