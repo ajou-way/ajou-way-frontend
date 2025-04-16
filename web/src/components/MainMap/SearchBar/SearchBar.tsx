@@ -9,7 +9,7 @@ import { useAutoCompleteResultsQuery } from '@/queries/useAutoCompleteResultsQue
 import * as styles from './SearchBar.styles';
 
 interface SearchBarProps {
-  onItemClick: (id: number) => void;
+  onItemClick: (id: number, name: string) => void;
   isOpen: boolean;
   open: () => void;
   close: () => void;
@@ -30,8 +30,8 @@ const SearchBar = ({ onItemClick, isOpen, open, close }: SearchBarProps) => {
     close();
   };
 
-  const handleItemClick = (id: number) => {
-    onItemClick(id);
+  const handleItemClick = (id: number, name: string) => {
+    onItemClick(id, name);
     handleClose();
   };
 
@@ -49,7 +49,7 @@ const SearchBar = ({ onItemClick, isOpen, open, close }: SearchBarProps) => {
       {results && isListOpen && (
         <ul className={styles.list}>
           {results.map((item) => (
-            <li key={item.id} className={styles.item} onClick={() => handleItemClick(item.id)}>
+            <li key={item.id} className={styles.item} onClick={() => handleItemClick(item.id, item.name)}>
               {item.name}
             </li>
           ))}

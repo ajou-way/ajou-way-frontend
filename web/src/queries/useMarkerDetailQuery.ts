@@ -8,5 +8,5 @@ export const useMarkerDetailQuery = (id: number) => {
     queryFn: () => getMarkerDetail(id),
   });
 
-  return { name: data?.detail?.name ?? '', isLoading };
+  return { detail: data, isLoading };
 };

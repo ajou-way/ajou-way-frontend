@@ -14,7 +14,7 @@ function App() {
         <Route element={<Layout />}>
           <Route path={PATH.MAIN_MAP} element={<MainMap />} />
           <Route path={PATH.BARRIER_FREE_MAP} element={<BarrierFreeMap />} />
-          <Route path={PATH.BUILDING_DETAIL} element={<BuildingDetail />} />
+          <Route path={`${PATH.BUILDING_DETAIL}/:id`} element={<BuildingDetail />} />
         </Route>
       </Routes>
     </BrowserRouter>

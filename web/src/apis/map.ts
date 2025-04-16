@@ -1,13 +1,13 @@
-import { Marker, MarkerDetail } from '@/pages/type';
+import { Marker, MarkerDetail, Building, BuildingDetail } from '@/pages/type';
 
 import fetcher from '@/apis/fetcher';
 
 export const getMarkers = async () => {
-  return await fetcher.get<{ markers: Omit<Marker, 'markerType'>[] }>({ endpoint: '/campus/markers' });
+  return await fetcher.get<{ result: Building[] }>({ endpoint: '/maps/buildings' });
 };
 
 export const getMarkerDetail = async (id: number) => {
-  return await fetcher.get<{ detail: MarkerDetail }>({ endpoint: `/markers/building/${id}` });
+  return await fetcher.get<BuildingDetail>({ endpoint: `/maps/building/${id}` });
 };
 
 export const getBarrierFreeMarkers = async () => {

@@ -1,20 +1,20 @@
 import { IoIosClose } from 'react-icons/io';
+import { Link } from 'react-router';
 
-import { useMarkerDetailQuery } from '@/queries/useMarkerDetailQuery';
+import { PATH } from '@/constants/routes';
 
 import * as styles from './InformationModal.styles';
 
 interface InformationModalProps {
   id: number;
+  name: string;
   onRoutingClick: (departure: string) => void;
   isOpen: boolean;
   close: () => void;
 }
 
-const InformationModal = ({ id, onRoutingClick, isOpen, close }: InformationModalProps) => {
-  const { name, isLoading } = useMarkerDetailQuery(id);
-
-  if (!isOpen || isLoading) return null;
+const InformationModal = ({ id, name, onRoutingClick, isOpen, close }: InformationModalProps) => {
+  if (!isOpen) return null;
 
   return (
     <div className={styles.layout}>
@@ -31,7 +31,9 @@ const InformationModal = ({ id, onRoutingClick, isOpen, close }: InformationModa
           </div>
         </div>
       </div>
-      <button className={styles.linkButton}>더 많은 정보 보기</button>
+      <Link to={`${PATH.BUILDING_DETAIL}/${id}`}>
+        <button className={styles.linkButton}>더 많은 정보 보기</button>
+      </Link>
     </div>
   );
 };
