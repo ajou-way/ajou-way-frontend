@@ -6,8 +6,8 @@ export const getMarkers = async () => {
   return await fetcher.get<{ result: Building[] }>({ endpoint: '/maps/buildings' });
 };
 
-export const getMarkerDetail = async (id: number) => {
-  return await fetcher.get<BuildingDetail>({ endpoint: `/maps/building/${id}` });
+export const getBuildingDetail = async (id: number) => {
+  return await fetcher.get<BuildingDetail>({ endpoint: `/maps/buildings/${id}` });
 };
 
 export const getBarrierFreeMarkers = async () => {

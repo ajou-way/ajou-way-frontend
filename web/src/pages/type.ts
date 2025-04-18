@@ -41,7 +41,7 @@ export interface BuildingDetail {
     type: string;
     coordinates: number[];
   };
-  remarks: string;
-  imgUrl: string;
-  amenityInfos: AmenityInfo[];
+  remarks?: string;
+  imgUrl?: string;
+  amenityInfos?: AmenityInfo[];
 }

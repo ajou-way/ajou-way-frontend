@@ -1,21 +1,39 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { IoIosArrowBack } from 'react-icons/io';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
+
+import { useBuildingDetailQuery } from '@/queries/useBuildingDetailQuery';
 
 import * as S from './BuildingDetail.styles';
 
 const TAB_ITEM = [
-  { id: 1, value: '건물 정보', subTitle: ['소개', '층별 안내'] },
-  { id: 2, value: '출입문 정보', subTitle: ['출입문 정보'] },
-  { id: 3, value: '식당', subTitle: ['팔달관 매점', '메뉴'] },
-  { id: 4, value: '편의점', subTitle: ['CU 팔달관점'] },
-  { id: 5, value: '주차장', subTitle: ['주차장 정보'] },
+  {
+    id: 1,
+    value: '건물 정보',
+    subTitle: ['소개', '층별 안내'],
+    info: [
+      '1993년 12월 준공된 건물로, 이름은 아주대학교가 소재하고 있던 수원시 팔달구에서 유래했다. 지상 10층의 건물로, 아주대학교와 수원시를 조망할 수 있다. 공학교육혁신센터, 현장실습지원센터, CSMC(Cyber Security Multiplex Center) 등이 위치해 있다.',
+      '',
+    ],
+  },
+  { id: 2, value: '출입문 정보', subTitle: ['출입문 정보'], info: [] },
+  { id: 3, value: '식당', subTitle: ['팔달관 매점', '메뉴'], info: [] },
+  { id: 4, value: '편의점', subTitle: ['CU 팔달관점'], info: [] },
+  { id: 5, value: '주차장', subTitle: ['주차장 정보'], info: [] },
 ];
 
 const BuildingDetail = () => {
+  const { id } = useParams<{ id: string }>();
+
   const [activeIndex, setActiveIndex] = useState(1);
 
   const navigate = useNavigate();
+
+  const activeItem = useMemo(() => TAB_ITEM.find(({ id }) => id === activeIndex), [activeIndex]);
+
+  const { detail, isLoading } = useBuildingDetailQuery(1);
+
+  console.log(detail);
 
   return (
     <div className={S.layout}>
@@ -43,9 +61,10 @@ const BuildingDetail = () => {
         ))}
       </div>
       <div className={S.body}>
-        {TAB_ITEM.find(({ id }) => id === activeIndex)?.subTitle.map((value) => (
+        {activeItem?.subTitle.map((value, idx) => (
           <div className={S.container}>
             <h2 className={S.subTitle}>{value}</h2>
+            {activeItem?.info[idx] ?? ''}
           </div>
         ))}
       </div>
