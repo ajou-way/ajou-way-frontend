@@ -31,9 +31,9 @@ const BuildingDetail = () => {
 
   const activeItem = useMemo(() => TAB_ITEM.find(({ id }) => id === activeIndex), [activeIndex]);
 
-  const { detail, isLoading } = useBuildingDetailQuery(1);
+  const { detail, isLoading } = useBuildingDetailQuery(id || '');
 
-  console.log(detail);
+  if (isLoading) return null;
 
   return (
     <div className={S.layout}>
@@ -43,7 +43,7 @@ const BuildingDetail = () => {
         </button>
       </div>
       <div className={S.header}>
-        <h1 className={S.title}>팔달관</h1>
+        <h1 className={S.title}>{detail?.name}</h1>
         <img
           src="https://i.namu.wiki/i/eS12uEAhzad9c3I-ju-LI2uh6SeH_hxTDCmA9-0oCf8lNZ4Iy_QSWK73m_UPWyOri0lvTSyQwfZ_8NlDOj5wsw.webp"
           className={S.image}
