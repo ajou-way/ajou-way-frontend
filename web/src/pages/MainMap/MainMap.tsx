@@ -17,7 +17,9 @@ const MainMap = () => {
   const { map, mapRef, addMarker } = useMainMap();
 
   const [departure, setDeparture] = useState('');
+
   const [modalId, setModalId] = useState(0);
+  const [modalName, setModalName] = useState('');
 
   const { isOpen: isListOpen, open: openList, close: closeList } = useIsOpen();
   const { isOpen: isModalOpen, open: openModal, close: closeModal } = useIsOpen();
@@ -33,8 +35,10 @@ const MainMap = () => {
     closeSearchBar();
   };
 
-  const handleOpenModal = (id: number) => {
+  const handleOpenModal = (id: number, name: string) => {
     setModalId(id);
+    setModalName(name);
+
     openModal();
   };
 
@@ -42,7 +46,9 @@ const MainMap = () => {
     if (!map) return;
 
     markers.forEach((marker) =>
-      addMarker(map, marker.geometry.coordinates[1], marker.geometry.coordinates[0], () => handleOpenModal(marker.id))
+      addMarker(map, marker.geometry.coordinates[1], marker.geometry.coordinates[0], () =>
+        handleOpenModal(marker.id, marker.name)
+      )
     );
   }, [map, markers]);
 
@@ -54,7 +60,13 @@ const MainMap = () => {
         <RoutingBar initialDeparture={departure} isOpen={isRoutingBarOpen} close={closeRoutingBar} />
       </div>
       <div className={styles.modalContainer}>
-        <InformationModal id={modalId} onRoutingClick={handleRoutingClick} isOpen={isModalOpen} close={closeModal} />
+        <InformationModal
+          id={modalId}
+          name={modalName}
+          onRoutingClick={handleRoutingClick}
+          isOpen={isModalOpen}
+          close={closeModal}
+        />
       </div>
       <div ref={mapRef} className={styles.mapContainer} />
     </>

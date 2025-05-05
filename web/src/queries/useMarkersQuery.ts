@@ -8,5 +8,5 @@ export const useMarkersQuery = () => {
     queryFn: getMarkers,
   });
 
-  return { markers: data?.markers ?? [] };
+  return { markers: data?.result ?? [] };
 };

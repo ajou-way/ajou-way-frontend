@@ -10,6 +10,7 @@ export const layout = css({
 
   width: '100%',
   height: '6.5rem',
+  borderTop: '1px solid {colors.grey.100}',
 
   bg: '{colors.white}',
 });
