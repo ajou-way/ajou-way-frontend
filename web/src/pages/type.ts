@@ -29,9 +29,9 @@ export interface Building {
 
 export interface AmenityInfo {
   id: number;
+  buildingId: number;
   type: string;
   properties: Record<string, unknown>;
-  buildingId: number;
 }
 
 export interface BuildingDetail {
