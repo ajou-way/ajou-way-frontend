@@ -58,10 +58,11 @@ const AddBuildingDetail = () => {
 
   return (
     <div className={S.layout}>
+      <h1 className={css({ textStyle: 'title' })}>건물 정보 입력 페이지</h1>
       <div className={S.container}>
         <fieldset>
-          <legend className={css({ pb: '1rem', textStyle: 'subTitle' })}>건물 타입을 선택해 주세요.</legend>
-          <div className={css({ display: 'flex', alignItems: 'center', gap: '1rem' })}>
+          <legend className={css({ pb: '1rem' })}>건물 타입을 선택해 주세요.</legend>
+          <div className={css({ display: 'flex', gap: '1rem' })}>
             <input type="radio" id="door" name="type" value="DOOR" onChange={handleTypeChange} />
             <label htmlFor="door">출입문 정보</label>
             <input type="radio" id="restaurant" name="type" value="RESTAURANT" onChange={handleTypeChange} />
@@ -73,24 +74,26 @@ const AddBuildingDetail = () => {
           </div>
         </fieldset>
         {propertyList.map(({ key, value }, index) => (
-          <div key={index} className={S.inputContainer}>
+          <div key={index} className={S.container}>
             <div className={S.inputField}>
-              <label>속성 이름</label>
+              <label>({index + 1}) 속성 이름을 입력해 주세요.</label>
               <input className={S.input} type="text" value={key} onChange={(e) => handleListChange(e, 'key', index)} />
             </div>
             <div className={S.inputField}>
-              <label>속성 내용</label>
+              <label>({index + 1}) 속성 내용을 입력해 주세요.</label>
               <textarea className={S.input} value={value} onChange={(e) => handleListChange(e, 'value', index)} />
             </div>
           </div>
         ))}
+      </div>
+      <div className={S.buttonList}>
         <button type="button" className={S.addButton} onClick={addPropertyItem}>
           속성 추가하기
         </button>
+        <button type="button" className={S.saveButton} onClick={saveBuildingDetail}>
+          저장하기
+        </button>
       </div>
-      <button type="button" className={S.postButton} onClick={saveBuildingDetail}>
-        저장하기
-      </button>
     </div>
   );
 };
