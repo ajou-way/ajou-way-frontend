@@ -16,6 +16,15 @@ const Admin = () => {
     }
   };
 
+  const currentRecord = () => {
+    stopRecord();
+
+    navigator.geolocation.getCurrentPosition((position) => {
+      const { latitude, longitude } = position.coords;
+      setCoords((prev) => [...prev, { lat: latitude, lng: longitude }]);
+    });
+  };
+
   // 5초마다 좌표 기록
   const startRecord = () => {
     console.log('좌표 기록 시작');
@@ -42,14 +51,13 @@ const Admin = () => {
     setCoords([]);
   };
 
-  const sendRecord = () => {
-    console.log('좌표 전송');
-  };
-
   return (
     <div className={S.layout}>
       <h1 className={css({ textStyle: 'title' })}>좌표 기록 페이지</h1>
       <div className={S.buttonList}>
+        <button className={S.button} onClick={currentRecord}>
+          현재 좌표 찍기
+        </button>
         <button className={S.button} onClick={startRecord}>
           좌표 기록 시작
         </button>
@@ -58,9 +66,6 @@ const Admin = () => {
         </button>
         <button className={S.button} onClick={resetRecord}>
           좌표 기록 초기화
-        </button>
-        <button className={S.button} onClick={sendRecord}>
-          좌표 전송
         </button>
       </div>
       <h2 className={css({ textStyle: 'subTitle', fontWeight: 'semibold' })}>기록된 좌표</h2>
