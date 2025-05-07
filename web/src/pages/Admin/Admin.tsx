@@ -1,28 +1,30 @@
-import { useRef, useState } from 'react';
+import { useState, useCallback } from 'react';
+
+import { useInterval } from '@/hooks/_common/useInterval';
 
 import { css } from '../../../styled-system/css';
 
 import * as S from './Admin.styles';
 
 const Admin = () => {
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-
   const [coords, setCoords] = useState<{ lat: number; lng: number }[]>([]);
+  const [isRecording, setIsRecording] = useState(false);
 
-  const stopRecord = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
-  };
-
-  const currentRecord = () => {
-    stopRecord();
-
+  const recordCoords = useCallback(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords;
       setCoords((prev) => [...prev, { lat: latitude, lng: longitude }]);
     });
+  }, []);
+
+  const stopRecord = () => {
+    console.log('좌표 기록 중지');
+    setIsRecording(false);
+  };
+
+  const currentRecord = () => {
+    stopRecord();
+    recordCoords();
   };
 
   // 5초마다 좌표 기록
@@ -30,18 +32,8 @@ const Admin = () => {
     console.log('좌표 기록 시작');
 
     stopRecord();
-
-    navigator.geolocation.getCurrentPosition((position) => {
-      const { latitude, longitude } = position.coords;
-      setCoords((prev) => [...prev, { lat: latitude, lng: longitude }]);
-    });
-
-    intervalRef.current = setInterval(() => {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const { latitude, longitude } = position.coords;
-        setCoords((prev) => [...prev, { lat: latitude, lng: longitude }]);
-      });
-    }, 5000);
+    recordCoords();
+    setIsRecording(true);
   };
 
   const resetRecord = () => {
@@ -50,6 +42,8 @@ const Admin = () => {
     stopRecord();
     setCoords([]);
   };
+
+  useInterval(recordCoords, isRecording ? 5000 : null);
 
   return (
     <div className={S.layout}>
