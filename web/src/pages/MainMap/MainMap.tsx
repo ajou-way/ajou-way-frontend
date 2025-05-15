@@ -8,13 +8,12 @@ import SearchBar from '@/components/MainMap/SearchBar/SearchBar';
 import { useIsOpen } from '@/hooks/_common/useIsOpen';
 import { useMainMap } from '@/hooks/useMainMap';
 
-import { useMarkersQuery } from '@/queries/useMarkersQuery';
+import { useBuildingsQuery } from '@/queries/useBuildingsQuery';
 
 import * as styles from './MainMap.styles';
 
 const MainMap = () => {
-  const { markers } = useMarkersQuery();
-  const { map, mapRef, addMarker } = useMainMap();
+  const { buildings } = useBuildingsQuery();
 
   const [departure, setDeparture] = useState('');
 
@@ -25,6 +24,8 @@ const MainMap = () => {
   const { isOpen: isModalOpen, open: openModal, close: closeModal } = useIsOpen();
   const { isOpen: isSearchBarOpen, open: openSearchBar, close: closeSearchBar } = useIsOpen();
   const { isOpen: isRoutingBarOpen, open: openRoutingBar, close: closeRoutingBar } = useIsOpen();
+
+  const { map, mapRef, addMarker, addClusterMarker } = useMainMap();
 
   const handleRoutingClick = (departure: string) => {
     setDeparture(departure);
@@ -45,12 +46,20 @@ const MainMap = () => {
   useEffect(() => {
     if (!map) return;
 
-    markers.forEach((marker) =>
-      addMarker(map, marker.geometry.coordinates[1], marker.geometry.coordinates[0], () =>
-        handleOpenModal(marker.id, marker.name)
-      )
-    );
-  }, [map, markers]);
+    const markers: naver.maps.Marker[] = [];
+
+    buildings.forEach((building) => {
+      const marker = addMarker(map, building.geometry.coordinates[1], building.geometry.coordinates[0], () =>
+        handleOpenModal(building.id, building.name)
+      );
+
+      markers.push(marker);
+    });
+
+    if (markers.length === buildings.length) {
+      addClusterMarker(map, markers);
+    }
+  }, [map, buildings]);
 
   return (
     <>
