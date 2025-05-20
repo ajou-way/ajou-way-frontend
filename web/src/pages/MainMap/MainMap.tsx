@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 
+import { Building } from '@/pages/type';
+
 import InformationModal from '@/components/_common/InformationModal/InformationModal';
 import CategoryList from '@/components/MainMap/CategoryList/CategoryList';
 import RoutingBar from '@/components/MainMap/RoutingBar/RoutingBar';
@@ -15,10 +17,8 @@ import * as styles from './MainMap.styles';
 const MainMap = () => {
   const { buildings } = useBuildingsQuery();
 
-  const [departure, setDeparture] = useState('');
-
-  const [modalId, setModalId] = useState(0);
-  const [modalName, setModalName] = useState('');
+  const [activeBuilding, setActiveBuilding] = useState<Building | null>(null);
+  const [departureBuilding, setDepartureBuilding] = useState<Building | null>(null);
 
   const { isOpen: isListOpen, open: openList, close: closeList } = useIsOpen();
   const { isOpen: isModalOpen, open: openModal, close: closeModal } = useIsOpen();
@@ -27,8 +27,8 @@ const MainMap = () => {
 
   const { map, mapRef, addMarker, addClusterMarker } = useMainMap();
 
-  const handleRoutingClick = (departure: string) => {
-    setDeparture(departure);
+  const handleRoutingClick = (building: Building) => {
+    setDepartureBuilding(building);
     openRoutingBar();
 
     closeList();
@@ -36,10 +36,16 @@ const MainMap = () => {
     closeSearchBar();
   };
 
-  const handleOpenModal = (id: number, name: string) => {
-    setModalId(id);
-    setModalName(name);
+  const handleOpenModal = (building: Building) => {
+    if (!map) return;
 
+    const latitude = building.geometry.coordinates[1];
+    const longitude = building.geometry.coordinates[0];
+
+    map.setCenter(new naver.maps.LatLng(latitude, longitude)); // 지도 중심 좌표 이동
+    map.setZoom(19); // 지도 확대
+
+    setActiveBuilding(building);
     openModal();
   };
 
@@ -50,7 +56,7 @@ const MainMap = () => {
 
     buildings.forEach((building) => {
       const marker = addMarker(map, building.geometry.coordinates[1], building.geometry.coordinates[0], () =>
-        handleOpenModal(building.id, building.name)
+        handleOpenModal(building)
       );
 
       markers.push(marker);
@@ -66,12 +72,11 @@ const MainMap = () => {
       <div className={styles.header}>
         <CategoryList isOpen={isListOpen} open={openList} close={closeList} />
         <SearchBar onItemClick={handleOpenModal} isOpen={isSearchBarOpen} open={openSearchBar} close={closeSearchBar} />
-        <RoutingBar initialDeparture={departure} isOpen={isRoutingBarOpen} close={closeRoutingBar} />
+        <RoutingBar initialDeparture={departureBuilding} isOpen={isRoutingBarOpen} close={closeRoutingBar} />
       </div>
       <div className={styles.modalContainer}>
         <InformationModal
-          id={modalId}
-          name={modalName}
+          building={activeBuilding}
           onRoutingClick={handleRoutingClick}
           isOpen={isModalOpen}
           close={closeModal}

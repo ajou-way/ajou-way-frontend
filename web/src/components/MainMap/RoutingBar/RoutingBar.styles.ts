@@ -37,6 +37,17 @@ export const input = css({
   _placeholder: { color: '{colors.grey.300}' },
 });
 
+export const disabledInput = css({
+  w: '100%',
+  h: '4.5rem',
+  p: '1rem 1.4rem',
+  outline: 'none',
+
+  textStyle: 'body',
+
+  _placeholder: { color: '{colors.grey.300}' },
+});
+
 export const list = css({
   w: '100%',
   maxH: '18rem',

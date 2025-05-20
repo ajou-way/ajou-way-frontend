@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getMarkers } from '@/apis/map';
+import { getBuildings } from '@/apis/map';
 
 export const useBuildingsQuery = () => {
   const { data } = useQuery({
-    queryKey: ['markers'],
-    queryFn: getMarkers,
+    queryKey: ['buildings'],
+    queryFn: getBuildings,
   });
 
   return { buildings: data?.result ?? [] };
