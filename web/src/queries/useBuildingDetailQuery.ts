@@ -8,5 +8,5 @@ export const useBuildingDetailQuery = (id: string) => {
     queryFn: () => getBuildingDetail(Number(id)),
   });
 
-  return { detail: data, isLoading };
+  return { buildingDetail: data, isLoading };
 };
