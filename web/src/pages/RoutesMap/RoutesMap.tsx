@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router';
 
-import RoutingBar from '@/components/RoutesMap/RoutingBar';
+import { Header } from '@/components/RoutesMap';
 
 import { useRoutesMap } from '@/hooks/useRoutesMap';
 
@@ -17,9 +17,6 @@ const RoutesMap = () => {
 
   const endLat = searchParams.get('endLat');
   const endLng = searchParams.get('endLng');
-
-  const departure = searchParams.get('departure');
-  const arrival = searchParams.get('arrival');
 
   const startCoords = [Number(startLat ?? '0'), Number(startLng ?? '0')];
   const endCoords = [Number(endLat ?? '0'), Number(endLng ?? '0')];
@@ -48,7 +45,7 @@ const RoutesMap = () => {
   return (
     <>
       <div className={styles.header}>
-        <RoutingBar departure={departure ?? ''} arrival={arrival ?? ''} />
+        <Header />
       </div>
       <div ref={mapRef} className={styles.mapContainer} />
     </>
