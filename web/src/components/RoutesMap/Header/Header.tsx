@@ -1,13 +1,11 @@
 import { LuArrowRight } from 'react-icons/lu';
-import { useSearchParams } from 'react-router';
+
+import { useGetSearchParams } from '@/hooks/useRoutesMap';
 
 import * as styles from './Header.styles';
 
 const Header = () => {
-  const [searchParams] = useSearchParams();
-
-  const departure = searchParams.get('departure');
-  const arrival = searchParams.get('arrival');
+  const { departure, arrival } = useGetSearchParams();
 
   return (
     <div className={styles.layout}>
