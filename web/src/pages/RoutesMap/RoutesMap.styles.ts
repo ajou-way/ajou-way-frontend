@@ -18,12 +18,3 @@ export const mapContainer = css({
 
   overflow: 'hidden',
 });
-
-export const modalContainer = css({
-  position: 'fixed',
-  bottom: '9rem',
-  zIndex: 1,
-
-  w: '100%',
-  p: '0 1rem',
-});

@@ -1,0 +1,66 @@
+import { css } from '../../../../styled-system/css';
+
+export const layout = css({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '0.4rem',
+
+  position: 'absolute',
+  top: 0,
+
+  w: '100%',
+  p: '0 2rem',
+});
+
+export const container = css({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+
+  position: 'relative',
+
+  w: '100%',
+  border: '1px solid {colors.primary.500}',
+  rounded: '1rem',
+
+  bg: '{colors.white}',
+});
+
+export const bar = css({
+  display: 'flex',
+  alignItems: 'center',
+
+  w: '100%',
+  h: '4.5rem',
+  p: '1rem 1.4rem',
+  outline: 'none',
+
+  textStyle: 'body',
+
+  _placeholder: { color: '{colors.grey.300}' },
+});
+
+export const line = css({
+  w: '100%',
+  h: '0.1rem',
+  border: 0,
+
+  bg: '{colors.primary.500}',
+});
+
+export const circle = css({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+
+  position: 'absolute',
+  top: '50%',
+  transform: 'translate(0, -50%)',
+
+  w: '3rem',
+  h: '3rem',
+  rounded: 'full',
+
+  bg: '{colors.primary.500}',
+  color: '{colors.white}',
+});

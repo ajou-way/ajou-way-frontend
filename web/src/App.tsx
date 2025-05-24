@@ -4,6 +4,7 @@ import BarrierFreeMap from '@/pages/BarrierFreeMap/BarrierFreeMap';
 import BuildingDetail from '@/pages/BuildingDetail/BuildingDetail';
 import Layout from '@/pages/Layout';
 import MainMap from '@/pages/MainMap/MainMap';
+import RoutesMap from '@/pages/RoutesMap/RoutesMap';
 
 import { PATH } from '@/constants/routes';
 
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path={PATH.MAIN_MAP} element={<MainMap />} />
+          <Route path={PATH.ROUTES_MAP} element={<RoutesMap />} />
           <Route path={PATH.BARRIER_FREE_MAP} element={<BarrierFreeMap />} />
           <Route path={`${PATH.BUILDING_DETAIL}/:id`} element={<BuildingDetail />} />
         </Route>

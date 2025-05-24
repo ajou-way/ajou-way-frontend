@@ -35,20 +35,22 @@ export const useMap = () => {
   };
 
   useEffect(() => {
-    if (!navigator.geolocation) {
-      initializeMap(DEFAULT_CENTER.latitude, DEFAULT_CENTER.longitude);
-      return;
-    }
+    // if (!navigator.geolocation) {
+    //   initializeMap(DEFAULT_CENTER.latitude, DEFAULT_CENTER.longitude);
+    //   return;
+    // }
 
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        initializeMap(position.coords.latitude, position.coords.longitude);
-      },
-      (error) => {
-        console.error(error.message);
-        initializeMap(DEFAULT_CENTER.latitude, DEFAULT_CENTER.longitude);
-      }
-    );
+    // navigator.geolocation.getCurrentPosition(
+    //   (position) => {
+    //     initializeMap(position.coords.latitude, position.coords.longitude);
+    //   },
+    //   (error) => {
+    //     console.error(error.message);
+    //     initializeMap(DEFAULT_CENTER.latitude, DEFAULT_CENTER.longitude);
+    //   }
+    // );
+
+    initializeMap(DEFAULT_CENTER.latitude, DEFAULT_CENTER.longitude);
   }, []);
 
   return { map, mapRef };

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getRoutes } from '@/apis/map';
+import { getRoutes, GetRoutesResponse } from '@/apis/map';
 
 export const useRoutesQuery = (startCoords: number[], endCoords: number[]) => {
   const { data, refetch } = useQuery({
@@ -12,9 +12,17 @@ export const useRoutesQuery = (startCoords: number[], endCoords: number[]) => {
         endLat: endCoords[0],
         endLng: endCoords[1],
       }),
-    enabled: false, // @MEMO: 자동 실행 방지
     refetchOnWindowFocus: false,
   });
 
-  return { routes: data?.result ?? [], refetch };
+  const formatRoutes = (result: GetRoutesResponse[]) => {
+    if (result.length === 0) return [];
+
+    return result[0].nodes.map(({ lat, lng }) => {
+      const coords = naver.maps.TransCoord.fromEPSG3857ToLatLng(new naver.maps.Point(lng, lat));
+      return new naver.maps.LatLng(coords.y, coords.x);
+    });
+  };
+
+  return { routes: formatRoutes(data?.result ?? []), refetch };
 };

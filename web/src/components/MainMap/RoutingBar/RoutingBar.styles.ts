@@ -1,9 +1,9 @@
-import { css } from '../../../../styled-system/css';
+import { css, cva } from '../../../../styled-system/css';
 
 export const layout = css({
   display: 'flex',
   flexDirection: 'column',
-  gap: '0.4rem',
+  gap: '1rem',
 
   position: 'absolute',
   top: 0,
@@ -37,19 +37,11 @@ export const input = css({
   _placeholder: { color: '{colors.grey.300}' },
 });
 
-export const disabledInput = css({
-  w: '100%',
-  h: '4.5rem',
-  p: '1rem 1.4rem',
-  outline: 'none',
-
-  textStyle: 'body',
-
-  _placeholder: { color: '{colors.grey.300}' },
-});
-
 export const list = css({
-  w: '100%',
+  position: 'absolute',
+  top: '10rem',
+
+  w: 'calc(100% - 4rem)',
   maxH: '18rem',
   rounded: '1rem',
   overflowY: 'auto',
@@ -86,7 +78,7 @@ export const line = css({
   bg: '{colors.primary.500}',
 });
 
-export const changeButton = css({
+export const circle = css({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -101,4 +93,42 @@ export const changeButton = css({
 
   bg: '{colors.primary.500}',
   color: '{colors.white}',
+});
+
+export const button = cva({
+  base: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    w: '100%',
+    h: '4.5rem',
+    p: '1rem 1.4rem',
+    rounded: '1rem',
+
+    textStyle: 'body',
+    color: '{colors.white}',
+
+    transition: 'all 0.2s',
+  },
+  variants: {
+    visual: {
+      default: {
+        bg: '{colors.primary.500}',
+        cursor: 'pointer',
+
+        _hover: {
+          bg: '{colors.primary.600}',
+        },
+
+        _active: {
+          bg: '{colors.primary.600}',
+        },
+      },
+      disabled: {
+        bg: '{colors.grey.400}',
+        cursor: 'not-allowed',
+      },
+    },
+  },
 });

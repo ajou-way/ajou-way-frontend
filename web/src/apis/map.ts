@@ -25,7 +25,7 @@ interface GetRoutesRequest {
   endLng: number;
 }
 
-interface GetRoutesResponse {
+export interface GetRoutesResponse {
   nodes: {
     nodeId: number;
     lat: number;
@@ -37,5 +37,5 @@ interface GetRoutesResponse {
 
 export const getRoutes = async ({ startLat, startLng, endLat, endLng }: GetRoutesRequest) => {
   const endpoint = `/api/maps/routes?startLng=${startLng}&startLat=${startLat}&endLng=${endLng}&endLat=${endLat}`;
-  return await fetcher.get<{ result: GetRoutesResponse }>({ endpoint });
+  return await fetcher.get<{ result: GetRoutesResponse[] }>({ endpoint });
 };
