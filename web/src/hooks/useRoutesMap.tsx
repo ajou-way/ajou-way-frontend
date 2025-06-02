@@ -6,9 +6,13 @@ import { useMap } from '@/hooks/useMap';
 import { useRoutesQuery } from '@/queries/useRoutesQuery';
 
 export const useRoutesMap = () => {
-  const { map, mapRef } = useMap();
-
   const { startCoords, endCoords } = useGetSearchParams();
+
+  const { map, mapRef } = useMap({
+    latitude: (startCoords[0] + endCoords[0]) / 2,
+    longitude: (startCoords[1] + endCoords[1]) / 2,
+    zoom: 18,
+  });
 
   const { routes } = useRoutesQuery(startCoords, endCoords);
 
@@ -20,12 +24,13 @@ export const useRoutesMap = () => {
     new naver.maps.Polyline({
       map: map,
       path: routes,
-      strokeColor: '#3871bf',
-      strokeWeight: 3,
+      strokeColor: '#5d8fd3',
+      strokeWeight: 4,
       strokeLineCap: 'round',
       strokeLineJoin: 'round',
       startIcon: naver.maps.PointingIcon.CIRCLE,
-      endIcon: naver.maps.PointingIcon.CIRCLE,
+      endIcon: naver.maps.PointingIcon.OPEN_ARROW,
+      endIconSize: 14,
     });
   }, [map, routes]);
 

@@ -19,7 +19,7 @@ export const container = css({
   w: 'calc(50% - 3rem)',
   h: '4.5rem',
   p: '1rem 1.4rem',
-  bg: '{colors.primary.50}',
+  bg: '{colors.primary.25}',
 
   border: '1px solid {colors.primary.500}',
   rounded: '1rem',
