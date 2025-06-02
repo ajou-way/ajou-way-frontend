@@ -4,18 +4,29 @@ import { CurrentMarker } from '@/assets/markers';
 
 const DEFAULT_CENTER = { latitude: 37.2821, longitude: 127.0463 };
 
-export const useMap = () => {
+interface Params {
+  latitude?: number;
+  longitude?: number;
+  zoom?: number;
+  minZoom?: number;
+}
+
+export const useMap = ({ latitude, longitude, zoom = 16, minZoom = 16 }: Params = {}) => {
   const [map, setMap] = useState<naver.maps.Map | null>(null);
   const mapRef = useRef<HTMLDivElement | null>(null);
 
   const initializeMap = (latitude: number, longitude: number) => {
     if (mapRef.current) {
-      const mapOptions = { center: new naver.maps.LatLng(latitude, longitude), zoom: 16 };
+      const mapOptions = {
+        center: new naver.maps.LatLng(latitude, longitude),
+        zoom,
+        minZoom,
+      };
+
       const map = new naver.maps.Map(mapRef.current, mapOptions);
-
-      addCurrentMarker(map, latitude, longitude);
-
       setMap(map);
+
+      return map;
     }
   };
 
@@ -35,6 +46,13 @@ export const useMap = () => {
   };
 
   useEffect(() => {
+    // @MEMO: 위도, 경도 값이 주어지면 해당 위치로 지도 초기화
+    if (latitude && longitude) {
+      initializeMap(latitude, longitude);
+      return;
+    }
+
+    // @MEMO: 위도, 경도 값이 주어지지 않으면 현재 위치로 지도 초기화
     if (!navigator.geolocation) {
       initializeMap(DEFAULT_CENTER.latitude, DEFAULT_CENTER.longitude);
       return;
@@ -42,14 +60,17 @@ export const useMap = () => {
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        initializeMap(position.coords.latitude, position.coords.longitude);
+        const map = initializeMap(position.coords.latitude, position.coords.longitude);
+        if (map) addCurrentMarker(map, position.coords.latitude, position.coords.longitude);
       },
       (error) => {
         console.error(error.message);
-        initializeMap(DEFAULT_CENTER.latitude, DEFAULT_CENTER.longitude);
+
+        const map = initializeMap(DEFAULT_CENTER.latitude, DEFAULT_CENTER.longitude);
+        if (map) addCurrentMarker(map, DEFAULT_CENTER.latitude, DEFAULT_CENTER.longitude);
       }
     );
-  }, []);
+  }, [latitude, longitude]);
 
   return { map, mapRef };
 };

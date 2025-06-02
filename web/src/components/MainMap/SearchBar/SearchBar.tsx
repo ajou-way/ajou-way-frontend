@@ -1,15 +1,17 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useMemo } from 'react';
 import { IoSearchOutline } from 'react-icons/io5';
+
+import { Building } from '@/pages/type';
 
 import { useBackdropClick } from '@/hooks/_common/useBackdropClick';
 import { useIsOpen } from '@/hooks/_common/useIsOpen';
 
-import { useAutoCompleteResultsQuery } from '@/queries/useAutoCompleteResultsQuery';
+import { useBuildingsQuery } from '@/queries/useBuildingsQuery';
 
 import * as styles from './SearchBar.styles';
 
 interface SearchBarProps {
-  onItemClick: (id: number, name: string) => void;
+  onItemClick: (building: Building) => void;
   isOpen: boolean;
   open: () => void;
   close: () => void;
@@ -22,7 +24,13 @@ const SearchBar = ({ onItemClick, isOpen, open, close }: SearchBarProps) => {
 
   const { isOpen: isListOpen, open: openList, close: closeList } = useIsOpen();
 
-  const { results } = useAutoCompleteResultsQuery(value);
+  // const { results } = useAutoCompleteResultsQuery(value);
+
+  const { buildings } = useBuildingsQuery();
+
+  const results = useMemo(() => {
+    return buildings.filter(({ name }) => name.includes(value));
+  }, [value, buildings]);
 
   const handleClose = () => {
     setValue('');
@@ -30,8 +38,8 @@ const SearchBar = ({ onItemClick, isOpen, open, close }: SearchBarProps) => {
     close();
   };
 
-  const handleItemClick = (id: number, name: string) => {
-    onItemClick(id, name);
+  const handleItemClick = (building: Building) => {
+    onItemClick(building);
     handleClose();
   };
 
@@ -49,7 +57,7 @@ const SearchBar = ({ onItemClick, isOpen, open, close }: SearchBarProps) => {
       {results && isListOpen && (
         <ul className={styles.list}>
           {results.map((item) => (
-            <li key={item.id} className={styles.item} onClick={() => handleItemClick(item.id, item.name)}>
+            <li key={item.id} className={styles.item} onClick={() => handleItemClick(item)}>
               {item.name}
             </li>
           ))}

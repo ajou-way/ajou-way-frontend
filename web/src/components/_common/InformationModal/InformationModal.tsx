@@ -1,20 +1,23 @@
 import { IoIosClose } from 'react-icons/io';
 import { Link } from 'react-router';
 
+import { Building } from '@/pages/type';
+
 import { PATH } from '@/constants/routes';
 
 import * as styles from './InformationModal.styles';
 
 interface InformationModalProps {
-  id: number;
-  name: string;
-  onRoutingClick: (departure: string) => void;
+  building: Building | null;
+  onRoutingClick: (building: Building) => void;
   isOpen: boolean;
   close: () => void;
 }
 
-const InformationModal = ({ id, name, onRoutingClick, isOpen, close }: InformationModalProps) => {
-  if (!isOpen) return null;
+const InformationModal = ({ building, onRoutingClick, isOpen, close }: InformationModalProps) => {
+  if (!isOpen || !building) return null;
+
+  const { id, name } = building;
 
   return (
     <div className={styles.layout}>
@@ -22,7 +25,7 @@ const InformationModal = ({ id, name, onRoutingClick, isOpen, close }: Informati
         <div className={styles.header}>
           <h2 className={styles.title}>{name}</h2>
           <div className={styles.buttonContainer}>
-            <button className={styles.routingButton} onClick={() => onRoutingClick(name)}>
+            <button className={styles.routingButton} onClick={() => onRoutingClick(building)}>
               출발
             </button>
             <button className={styles.closeButton} onClick={close}>

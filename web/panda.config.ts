@@ -32,6 +32,7 @@ export default defineConfig({
           white: { value: '#FFFFFF' },
           black: { value: '#000000' },
           primary: {
+            25: { value: '#fafcff' },
             50: { value: '#f3f6fc' },
             100: { value: '#e6ecf8' },
             200: { value: '#c7d7f0' },

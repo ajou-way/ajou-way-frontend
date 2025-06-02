@@ -25,7 +25,7 @@ export const useMainMap = () => {
         content: renderToString(<Marker image={BuildingMarker} />),
         size: new naver.maps.Size(28, 36),
         origin: new naver.maps.Point(0, 0),
-        anchor: new naver.maps.Point(14, 18),
+        anchor: new naver.maps.Point(14, 36),
       },
     };
 
@@ -39,7 +39,7 @@ export const useMainMap = () => {
     return {
       content: renderToString(<ClusterMarker image={image} />),
       size: new naver.maps.Size(40, 40),
-      anchor: new naver.maps.Point(20, 20),
+      anchor: new naver.maps.Point(20, 40),
     };
   };
 
