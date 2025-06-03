@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import { useAuthMutation } from '@/queries/useAuthMutation';
@@ -11,20 +11,20 @@ import * as styles from './SignUp.styles';
 const SignUp = () => {
   const navigate = useNavigate();
 
-  const [userName, setUserName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
+  // const [userName, setUserName] = useState('');
+  // const [userEmail, setUserEmail] = useState('');
   const [major, setMajor] = useState('');
   const [studentId, setStudentId] = useState('');
 
   const { profile } = useAuthQuery();
   const { authSignUpMutation } = useAuthMutation();
 
-  useEffect(() => {
-    if (profile) {
-      setUserName(profile.userName);
-      setUserEmail(profile.email);
-    }
-  }, [profile]);
+  // useEffect(() => {
+  //   if (profile) {
+  //     setUserName(profile.userName);
+  //     setUserEmail(profile.email);
+  //   }
+  // }, [profile]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -54,14 +54,14 @@ const SignUp = () => {
         <p className={styles.description}>회원가입을 완료하기 위해 추가 정보를 입력해 주세요!</p>
       </div>
       <form className={styles.form} onSubmit={handleSubmit}>
-        <div className={styles.container}>
+        {/* <div className={styles.container}>
           <p>이름</p>
           <input type="text" className={styles.input} value={userName} disabled />
         </div>
         <div className={styles.container}>
           <p>이메일</p>
           <input type="email" className={styles.input} value={userEmail} disabled />
-        </div>
+        </div> */}
         <div className={styles.container}>
           <p>학과 정보</p>
           <input
