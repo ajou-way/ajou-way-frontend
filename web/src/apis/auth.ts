@@ -16,6 +16,18 @@ export const login = async ({ provider, accessToken }: LoginRequest) => {
   });
 };
 
+interface SignUpRequest {
+  major: string;
+  studentId: string;
+}
+
+export const signUp = async ({ major, studentId }: SignUpRequest) => {
+  return await fetcher.put({
+    endpoint: '/api/auth/sign-up',
+    body: JSON.stringify({ major, studentId }),
+  });
+};
+
 interface GetProfileResponse {
   userId: number;
   userRole: string;
@@ -24,17 +36,5 @@ interface GetProfileResponse {
 }
 
 export const getProfile = async () => {
-  return await fetcher.get<GetProfileResponse>({ endpoint: '/api/auth/profile' });
-};
-
-interface UpdateProfileRequest {
-  major: string;
-  studentId: string;
-}
-
-export const updateProfile = async ({ major, studentId }: UpdateProfileRequest) => {
-  return await fetcher.put({
-    endpoint: '/api/auth/profile',
-    body: JSON.stringify({ major, studentId }),
-  });
+  return await fetcher.get<GetProfileResponse>({ endpoint: '/api/user/profile' });
 };
