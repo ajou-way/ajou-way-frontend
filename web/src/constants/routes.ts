@@ -8,4 +8,5 @@ export const PATH = {
   BUILDING_DETAIL: '/detail',
   BUILDING_DETAIL_INPUT: '/detail/:id/input',
   JOIN: '/join',
+  MY_PAGE: '/my-page',
 };

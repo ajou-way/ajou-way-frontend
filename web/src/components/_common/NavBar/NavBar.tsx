@@ -17,7 +17,10 @@ const NavBar = () => {
           {location.pathname === PATH.MAIN_MAP && <div className={styles.line} />}
           <IoMapOutline size="2rem" />
         </NavLink>
-        <NavLink to={PATH.BARRIER_FREE_MAP} className={({ isActive }) => (isActive ? styles.activeLink : styles.defaultLink)}>
+        <NavLink
+          to={PATH.BARRIER_FREE_MAP}
+          className={({ isActive }) => (isActive ? styles.activeLink : styles.defaultLink)}
+        >
           {location.pathname === PATH.BARRIER_FREE_MAP && <div className={styles.line} />}
           <TbDisabled size="2rem" />
         </NavLink>
@@ -30,7 +33,7 @@ const NavBar = () => {
           {location.pathname === '/community' && <div className={styles.line} />}
           <IoChatboxEllipsesOutline size="2rem" />
         </NavLink>
-        <NavLink to="/my-page" className={({ isActive }) => (isActive ? styles.activeLink : styles.defaultLink)}>
+        <NavLink to={PATH.MY_PAGE} className={({ isActive }) => (isActive ? styles.activeLink : styles.defaultLink)}>
           {location.pathname === '/mypage' && <div className={styles.line} />}
           <IoPersonOutline size="2rem" />
         </NavLink>

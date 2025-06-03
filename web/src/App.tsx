@@ -7,6 +7,7 @@ import Layout from '@/pages/Layout';
 import Loading from '@/pages/Loading/Loading';
 import Main from '@/pages/Main/Main';
 import MainMap from '@/pages/MainMap/MainMap';
+import MyPage from '@/pages/MyPage/MyPage';
 import RoutesMap from '@/pages/RoutesMap/RoutesMap';
 import SignUp from '@/pages/SignUp/SignUp';
 
@@ -25,6 +26,7 @@ function App() {
           <Route path={PATH.ROUTES_MAP} element={<RoutesMap />} />
           <Route path={PATH.BARRIER_FREE_MAP} element={<BarrierFreeMap />} />
           <Route path={`${PATH.BUILDING_DETAIL}/:id`} element={<BuildingDetail />} />
+          <Route path={PATH.MY_PAGE} element={<MyPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

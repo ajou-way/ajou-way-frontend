@@ -1,5 +1,5 @@
 interface RequestProps {
-  method: 'GET' | 'POST' | 'DELETE' | 'PATCH';
+  method: 'GET' | 'POST' | 'DELETE' | 'PATCH' | 'PUT';
   endpoint: string;
   queryParams?: Record<string, string | number | boolean>;
   headers?: Record<string, string>;
@@ -65,6 +65,14 @@ const fetcher = {
     return this.request<T>({
       ...props,
       method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+    });
+  },
+
+  put<T>(props: FetchProps) {
+    return this.request<T>({
+      ...props,
+      method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
     });
   },

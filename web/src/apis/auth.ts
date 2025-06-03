@@ -33,7 +33,7 @@ interface UpdateProfileRequest {
 }
 
 export const updateProfile = async ({ major, studentId }: UpdateProfileRequest) => {
-  return await fetcher.patch({
+  return await fetcher.put({
     endpoint: '/api/auth/profile',
     body: JSON.stringify({ major, studentId }),
   });
