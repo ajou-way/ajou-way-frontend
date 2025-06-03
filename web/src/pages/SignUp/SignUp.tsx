@@ -17,7 +17,7 @@ const SignUp = () => {
   const [studentId, setStudentId] = useState('');
 
   const { profile } = useAuthQuery();
-  const { updateProfileMutation } = useAuthMutation();
+  const { authSignUpMutation } = useAuthMutation();
 
   useEffect(() => {
     if (profile) {
@@ -34,7 +34,15 @@ const SignUp = () => {
       return;
     }
 
-    updateProfileMutation({ major, studentId }, { onSuccess: () => navigate(PATH.MAIN_MAP) });
+    authSignUpMutation(
+      { major, studentId },
+      {
+        onSuccess: ({ jwt }) => {
+          localStorage.setItem('accessToken', jwt.accessToken);
+          navigate(PATH.MAIN_MAP);
+        },
+      }
+    );
   };
 
   if (!profile) return null;

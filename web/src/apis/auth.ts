@@ -21,8 +21,13 @@ interface SignUpRequest {
   studentId: string;
 }
 
+interface SignUpResponse {
+  userId: number;
+  jwt: { accessToken: string };
+}
+
 export const signUp = async ({ major, studentId }: SignUpRequest) => {
-  return await fetcher.put({
+  return await fetcher.put<SignUpResponse>({
     endpoint: '/api/auth/sign-up',
     body: JSON.stringify({ major, studentId }),
   });

@@ -8,10 +8,10 @@ export const useAuthMutation = () => {
     onError: (error) => alert(error.message),
   });
 
-  const { mutate: updateProfileMutation } = useMutation({
+  const { mutate: authSignUpMutation } = useMutation({
     mutationFn: signUp,
     onError: (error) => alert(error.message),
   });
 
-  return { authLoginMutation, updateProfileMutation };
+  return { authLoginMutation, authSignUpMutation };
 };
