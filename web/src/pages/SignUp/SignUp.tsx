@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import { useAuthMutation } from '@/queries/useAuthMutation';
-import { useAuthQuery } from '@/queries/useAuthQuery';
+// import { useAuthQuery } from '@/queries/useAuthQuery';
 
 import { PATH } from '@/constants/routes';
 
@@ -16,7 +16,7 @@ const SignUp = () => {
   const [major, setMajor] = useState('');
   const [studentId, setStudentId] = useState('');
 
-  const { profile } = useAuthQuery();
+  // const { profile } = useAuthQuery();
   const { authSignUpMutation } = useAuthMutation();
 
   // useEffect(() => {
@@ -45,7 +45,7 @@ const SignUp = () => {
     );
   };
 
-  if (!profile) return null;
+  // if (!profile) return null;
 
   return (
     <div className={styles.layout}>
