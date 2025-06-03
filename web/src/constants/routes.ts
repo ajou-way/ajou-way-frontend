@@ -2,7 +2,7 @@ export const PATH = {
   LANDING: '/landing',
   LOADING: '/loading',
   MAIN: '/',
-  MAIN_MAP: '/',
+  MAIN_MAP: '/map',
   ROUTES_MAP: '/routes',
   BARRIER_FREE_MAP: '/barrier-free',
   BUILDING_DETAIL: '/detail',

@@ -5,6 +5,7 @@ import BuildingDetail from '@/pages/BuildingDetail/BuildingDetail';
 import Landing from '@/pages/Landing/Landing';
 import Layout from '@/pages/Layout';
 import Loading from '@/pages/Loading/Loading';
+import Main from '@/pages/Main/Main';
 import MainMap from '@/pages/MainMap/MainMap';
 import RoutesMap from '@/pages/RoutesMap/RoutesMap';
 import SignUp from '@/pages/SignUp/SignUp';
@@ -16,6 +17,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
+          <Route path={PATH.MAIN} element={<Main />} />
           <Route path={PATH.LANDING} element={<Landing />} />
           <Route path={PATH.LOADING} element={<Loading />} />
           <Route path={PATH.JOIN} element={<SignUp />} />

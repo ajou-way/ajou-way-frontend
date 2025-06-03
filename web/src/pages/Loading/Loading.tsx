@@ -2,6 +2,9 @@ import { useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router';
 
 import { useAuthMutation } from '@/queries/useAuthMutation';
+import { useGoogleMutation } from '@/queries/useGoogleMutation';
+
+import { PATH } from '@/constants/routes';
 
 import LoadingImage from '@/assets/loading.gif';
 
@@ -14,15 +17,23 @@ const Loading = () => {
   const code = searchParams.get('code');
 
   const { authLoginMutation } = useAuthMutation();
+  const { getAccessTokenMutation } = useGoogleMutation();
 
   useEffect(() => {
     if (code) {
-      authLoginMutation(
-        { provider: 'GOOGLE', accessToken: code },
+      getAccessTokenMutation(
+        { code },
         {
-          onSuccess: () => {
-            localStorage.setItem('accessToken', code);
-            navigate('/join');
+          onSuccess: ({ access_token }) => {
+            return authLoginMutation(
+              { provider: 'GOOGLE', accessToken: access_token },
+              {
+                onSuccess: () => {
+                  localStorage.setItem('accessToken', access_token);
+                  navigate(PATH.JOIN, { replace: true });
+                },
+              }
+            );
           },
         }
       );
