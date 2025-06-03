@@ -41,8 +41,10 @@ const SignUp = () => {
 
   return (
     <div className={styles.layout}>
-      <h1 className={styles.title}>추가 정보 입력</h1>
-      <p>회원가입을 완료하기 위해 추가 정보를 입력해 주세요!</p>
+      <div className={styles.titleContainer}>
+        <h1 className={styles.title}>추가 정보 입력</h1>
+        <p className={styles.description}>회원가입을 완료하기 위해 추가 정보를 입력해 주세요!</p>
+      </div>
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.container}>
           <p>이름</p>

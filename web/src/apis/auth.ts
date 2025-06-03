@@ -5,8 +5,12 @@ interface LoginRequest {
   accessToken: string;
 }
 
+interface LoginResponse {
+  accessToken: string;
+}
+
 export const login = async ({ provider, accessToken }: LoginRequest) => {
-  return await fetcher.post({
+  return await fetcher.post<LoginResponse>({
     endpoint: '/api/auth/login',
     body: JSON.stringify({ provider, accessToken }),
   });

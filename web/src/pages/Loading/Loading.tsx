@@ -28,8 +28,8 @@ const Loading = () => {
             return authLoginMutation(
               { provider: 'GOOGLE', accessToken: access_token },
               {
-                onSuccess: () => {
-                  localStorage.setItem('accessToken', access_token);
+                onSuccess: ({ accessToken }) => {
+                  localStorage.setItem('accessToken', accessToken);
                   navigate(PATH.JOIN, { replace: true });
                 },
               }

@@ -8,12 +8,24 @@ export const layout = css({
   py: '4rem',
 });
 
-export const title = css({
-  mb: '2rem',
+export const titleContainer = css({
+  display: 'flex',
+  flexDir: 'column',
+  gap: '0.4rem',
 
+  mb: '2rem',
+});
+
+export const title = css({
   color: '{colors.primary.800}',
   fontSize: '3xl',
   fontWeight: 'bold',
+});
+
+export const description = css({
+  color: '{colors.grey.800}',
+  fontSize: 'lg',
+  fontWeight: 'medium',
 });
 
 export const form = css({
