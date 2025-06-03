@@ -10,7 +10,7 @@ export const layout = css({
   minH: '100vh',
   px: '3rem',
 
-  bg: '{colors.gray.50}',
+  bg: '{colors.primary.25}',
 
   textAlign: 'center',
 });
@@ -29,7 +29,7 @@ export const title = css({
 });
 
 export const subTitle = css({
-  color: '{colors.gray.800}',
+  color: '{colors.grey.800}',
   textStyle: 'body',
   lineHeight: '1.6',
 });

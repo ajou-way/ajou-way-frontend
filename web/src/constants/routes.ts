@@ -1,5 +1,6 @@
 export const PATH = {
   LANDING: '/landing',
+  LOADING: '/loading',
   MAIN: '/',
   MAIN_MAP: '/',
   ROUTES_MAP: '/routes',

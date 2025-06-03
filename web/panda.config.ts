@@ -1,6 +1,7 @@
 import { defineConfig } from '@pandacss/dev';
 
 import { globalStyles } from './src/styles/globalStyles';
+import { keyframes } from './src/styles/keyframeStyles';
 import { textStyles } from './src/styles/textStyles';
 
 export default defineConfig({
@@ -20,6 +21,7 @@ export default defineConfig({
   theme: {
     extend: {
       textStyles,
+      keyframes,
       tokens: {
         fontWeights: {
           light: { value: '300' },

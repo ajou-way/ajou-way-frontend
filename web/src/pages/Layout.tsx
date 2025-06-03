@@ -7,10 +7,12 @@ import { PATH } from '@/constants/routes';
 const Layout = () => {
   const location = useLocation();
 
+  const hasNavBar = !(location.pathname === PATH.LANDING || location.pathname === PATH.JOIN);
+
   return (
     <>
       <Outlet />
-      {(location.pathname !== PATH.LANDING || location.pathname !== PATH.JOIN) && <NavBar />}
+      {hasNavBar && <NavBar />}
     </>
   );
 };
