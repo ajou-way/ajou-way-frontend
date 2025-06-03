@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { login, updateProfile } from '@/apis/auth';
+import { login, signUp } from '@/apis/auth';
 
 export const useAuthMutation = () => {
   const { mutate: authLoginMutation } = useMutation({
@@ -9,7 +9,7 @@ export const useAuthMutation = () => {
   });
 
   const { mutate: updateProfileMutation } = useMutation({
-    mutationFn: updateProfile,
+    mutationFn: signUp,
     onError: (error) => alert(error.message),
   });
 
