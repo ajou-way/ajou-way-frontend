@@ -11,7 +11,7 @@ const Landing = () => {
       client_id: GOOGLE_CLIENT_ID,
       redirect_uri: GOOGLE_REDIRECT_URL,
       response_type: 'code',
-      scope: 'https://www.googleapis.com/auth/userinfo.profile',
+      scope: 'openid email profile',
     });
 
     const url = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
