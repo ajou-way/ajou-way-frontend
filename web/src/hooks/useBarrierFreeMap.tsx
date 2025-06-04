@@ -43,7 +43,13 @@ export const useBarrierFreeMap = (defaultMarkers: Facilites[]) => {
     initializeMarkers(map, markerData);
   };
 
-  const addMarker = (map: naver.maps.Map, type: FacilityType, latitude: number, longitude: number) => {
+  const addMarker = (
+    map: naver.maps.Map,
+    type: FacilityType,
+    latitude: number,
+    longitude: number,
+    buildingName: string
+  ) => {
     const markerOptions = {
       map: map,
       position: new naver.maps.LatLng(latitude, longitude),
@@ -57,6 +63,33 @@ export const useBarrierFreeMap = (defaultMarkers: Facilites[]) => {
 
     const marker = new naver.maps.Marker(markerOptions);
     setMarkers((prev) => [...prev, marker]);
+
+    const infowindow = new naver.maps.InfoWindow({
+      content: renderToString(
+        <div style={{ padding: '5px 8px', fontSize: '10px', color: '#333' }}>
+          <p style={{ fontWeight: 'bold' }}>{buildingName}</p>
+          <p>
+            {type === 'ELEVATOR' && '엘리베이터'}
+            {type === 'IMPAIRMENT_TOILET' && '장애인 화장실'}
+            {type === 'RAMP' && '경사로'}
+            {type === 'NOTE' && '점자블록'}
+            {type === 'AUDIO_DEVICE' && '청각장애인 보조기기'}
+            {type === 'SUPPORT_OFFICE' && '장애인 지원 사무소'}
+          </p>
+        </div>
+      ),
+      borderWidth: 1,
+      borderColor: '#eee',
+      anchorSize: new naver.maps.Size(10, 10),
+    });
+
+    naver.maps.Event.addListener(marker, 'click', function () {
+      if (infowindow.getMap()) {
+        infowindow.close();
+      } else {
+        infowindow.open(map, marker);
+      }
+    });
   };
 
   const removeMarkers = () => {
@@ -69,7 +102,13 @@ export const useBarrierFreeMap = (defaultMarkers: Facilites[]) => {
 
     markerData.forEach((marker) => {
       console.log(marker.facilityMarkerType, marker.geometry.coordinates[1], marker.geometry.coordinates[0]);
-      addMarker(map, marker.facilityMarkerType, marker.geometry.coordinates[1], marker.geometry.coordinates[0]);
+      addMarker(
+        map,
+        marker.facilityMarkerType,
+        marker.geometry.coordinates[1],
+        marker.geometry.coordinates[0],
+        marker.buildingName
+      );
     });
   };
 
