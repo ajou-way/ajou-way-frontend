@@ -8,5 +8,5 @@ export const useBarrierFreeMarkersQuery = () => {
     queryFn: getBarrierFreeMarkers,
   });
 
-  return { markers: data?.markers ?? [] };
+  return { markers: data?.result ?? [] };
 };

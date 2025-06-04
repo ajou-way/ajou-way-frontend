@@ -1,15 +1,3 @@
-export type MarkerType = 'elevator' | 'impariment_toilet' | 'ramp' | 'note' | 'audio_device' | 'support_office';
-
-export interface Marker {
-  id: number;
-  markerType: MarkerType;
-  geometry: {
-    type: string;
-    coordinates: number[];
-  };
-  remarks: string;
-}
-
 export interface MarkerDetail {
   id: number;
   name: string;
@@ -44,4 +32,19 @@ export interface BuildingDetail {
   remarks?: string;
   imgUrl?: string;
   amenityInfos?: AmenityInfo[];
+}
+
+export type FacilityType = 'ELEVATOR' | 'IMPAIRMENT_TOILET' | 'RAMP' | 'NOTE' | 'AUDIO_DEVICE' | 'SUPPORT_OFFICE';
+
+export interface Facilites {
+  id: number;
+  facilityMarkerType: FacilityType;
+  geometry: {
+    type: string;
+    coordinates: number[];
+  };
+  remarks: string;
+  imgUrl: string;
+  buildingId: number;
+  buildingName: string;
 }

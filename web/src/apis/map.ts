@@ -1,4 +1,4 @@
-import { Marker, MarkerDetail, Building, BuildingDetail } from '@/pages/type';
+import { MarkerDetail, Building, BuildingDetail, Facilites } from '@/pages/type';
 
 import fetcher from '@/apis/fetcher';
 
@@ -11,7 +11,7 @@ export const getBuildingDetail = async (id: number) => {
 };
 
 export const getBarrierFreeMarkers = async () => {
-  return await fetcher.get<{ markers: Marker[] }>({ endpoint: '/markers' });
+  return await fetcher.get<{ result: Facilites[] }>({ endpoint: '/api/maps/facilities' });
 };
 
 export const getAutoCompleteResults = async (keyword: string) => {
