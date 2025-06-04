@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { Building } from '@/pages/type';
 
 import InformationModal from '@/components/_common/InformationModal/InformationModal';
-import CategoryList from '@/components/MainMap/CategoryList/CategoryList';
 import RoutingBar from '@/components/MainMap/RoutingBar/RoutingBar';
 import SearchBar from '@/components/MainMap/SearchBar/SearchBar';
 
@@ -22,7 +21,6 @@ const MainMap = () => {
   const [activeBuilding, setActiveBuilding] = useState<Building | null>(null);
   const [departureBuilding, setDepartureBuilding] = useState<Building | null>(null);
 
-  const { isOpen: isListOpen, open: openList, close: closeList } = useIsOpen();
   const { isOpen: isModalOpen, open: openModal, close: closeModal } = useIsOpen();
   const { isOpen: isSearchBarOpen, open: openSearchBar, close: closeSearchBar } = useIsOpen();
   const { isOpen: isRoutingBarOpen, open: openRoutingBar, close: closeRoutingBar } = useIsOpen();
@@ -33,7 +31,6 @@ const MainMap = () => {
     setDepartureBuilding(building);
     openRoutingBar();
 
-    closeList();
     closeModal();
     closeSearchBar();
   };
@@ -90,7 +87,6 @@ const MainMap = () => {
   return (
     <>
       <div className={styles.header}>
-        <CategoryList isOpen={isListOpen} open={openList} close={closeList} />
         <SearchBar onItemClick={handleOpenModal} isOpen={isSearchBarOpen} open={openSearchBar} close={closeSearchBar} />
         <RoutingBar initialDeparture={departureBuilding} isOpen={isRoutingBarOpen} close={closeRoutingBar} />
       </div>

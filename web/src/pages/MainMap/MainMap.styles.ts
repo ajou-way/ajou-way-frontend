@@ -2,7 +2,7 @@ import { css } from '../../../styled-system/css';
 
 export const header = css({
   display: 'flex',
-  justifyContent: 'space-between',
+  justifyContent: 'flex-end',
   alignItems: 'center',
 
   position: 'fixed',
