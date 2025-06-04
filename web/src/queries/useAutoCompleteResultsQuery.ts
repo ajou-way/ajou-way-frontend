@@ -8,5 +8,5 @@ export const useAutoCompleteResultsQuery = (keyword: string) => {
     queryFn: () => getAutoCompleteResults(keyword),
   });
 
-  return { results: data?.results ?? [], isLoading };
+  return { results: data?.result ?? [], isLoading };
 };
