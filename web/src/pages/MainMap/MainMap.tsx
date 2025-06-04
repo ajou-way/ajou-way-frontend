@@ -10,12 +10,14 @@ import SearchBar from '@/components/MainMap/SearchBar/SearchBar';
 import { useIsOpen } from '@/hooks/_common/useIsOpen';
 import { useMainMap } from '@/hooks/useMainMap';
 
+import { useAdminMarkersQuery } from '@/queries/useAdminMarkersQuery';
 import { useBuildingsQuery } from '@/queries/useBuildingsQuery';
 
 import * as styles from './MainMap.styles';
 
 const MainMap = () => {
   const { buildings } = useBuildingsQuery();
+  const { adminMarkers } = useAdminMarkersQuery();
 
   const [activeBuilding, setActiveBuilding] = useState<Building | null>(null);
   const [departureBuilding, setDepartureBuilding] = useState<Building | null>(null);
@@ -25,7 +27,7 @@ const MainMap = () => {
   const { isOpen: isSearchBarOpen, open: openSearchBar, close: closeSearchBar } = useIsOpen();
   const { isOpen: isRoutingBarOpen, open: openRoutingBar, close: closeRoutingBar } = useIsOpen();
 
-  const { map, mapRef, addMarker, addClusterMarker } = useMainMap();
+  const { map, mapRef, addMarker, addClusterMarker, addAdminMarker } = useMainMap();
 
   const handleRoutingClick = (building: Building) => {
     setDepartureBuilding(building);
@@ -49,8 +51,10 @@ const MainMap = () => {
     openModal();
   };
 
+  // @MEMO: 건물 마커 지도에 추가
   useEffect(() => {
     if (!map) return;
+    if (buildings.length === 0) return;
 
     const markers: naver.maps.Marker[] = [];
 
@@ -66,6 +70,22 @@ const MainMap = () => {
       addClusterMarker(map, markers);
     }
   }, [map, buildings]);
+
+  // @MEMO: 관리자 마커 지도에 추가
+  useEffect(() => {
+    if (!map) return;
+    if (adminMarkers.length === 0) return;
+
+    adminMarkers.forEach((marker) => {
+      addAdminMarker(
+        map,
+        marker.geometry.coordinates[1],
+        marker.geometry.coordinates[0],
+        marker.title,
+        marker.contents
+      );
+    });
+  }, [map, adminMarkers]);
 
   return (
     <>

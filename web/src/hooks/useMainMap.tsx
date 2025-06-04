@@ -5,8 +5,14 @@ import { Marker, ClusterMarker } from '@/components/_common/Marker';
 
 import { useMap } from '@/hooks/useMap';
 
-import { BuildingMarker } from '@/assets/markers';
-import { ClusterMarker1, ClusterMarker2, ClusterMarker3, ClusterMarker4 } from '@/assets/markers';
+import {
+  AdminMarker,
+  BuildingMarker,
+  ClusterMarker1,
+  ClusterMarker2,
+  ClusterMarker3,
+  ClusterMarker4,
+} from '@/assets/markers';
 
 declare global {
   interface Window {
@@ -66,5 +72,46 @@ export const useMainMap = () => {
     });
   };
 
-  return { map, mapRef, addMarker, addClusterMarker };
+  const addAdminMarker = (
+    map: naver.maps.Map,
+    latitude: number,
+    longitude: number,
+    title: string,
+    contents: string
+  ) => {
+    const markerOptions = {
+      map: map,
+      position: new naver.maps.LatLng(latitude, longitude),
+      icon: {
+        content: renderToString(<Marker image={AdminMarker} />),
+        size: new naver.maps.Size(28, 36),
+        origin: new naver.maps.Point(0, 0),
+        anchor: new naver.maps.Point(14, 36),
+      },
+    };
+
+    const marker = new naver.maps.Marker(markerOptions);
+
+    const infowindow = new naver.maps.InfoWindow({
+      content: renderToString(
+        <div style={{ padding: '5px 8px', fontSize: '10px', color: '#333' }}>
+          <p style={{ fontWeight: 'bold' }}>{title}</p>
+          <p>{contents}</p>
+        </div>
+      ),
+      borderWidth: 1,
+      borderColor: '#eee',
+      anchorSize: new naver.maps.Size(10, 10),
+    });
+
+    naver.maps.Event.addListener(marker, 'click', function () {
+      if (infowindow.getMap()) {
+        infowindow.close();
+      } else {
+        infowindow.open(map, marker);
+      }
+    });
+  };
+
+  return { map, mapRef, addMarker, addClusterMarker, addAdminMarker };
 };

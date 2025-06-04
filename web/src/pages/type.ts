@@ -48,3 +48,12 @@ export interface Facilites {
   buildingId: number;
   buildingName: string;
 }
+
+export interface Admin {
+  title: string;
+  contents: string;
+  geometry: {
+    type: string;
+    coordinates: number[];
+  };
+}

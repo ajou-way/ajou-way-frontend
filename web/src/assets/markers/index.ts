@@ -1,3 +1,4 @@
+// Barrier-free markers
 export { default as AudioDeviceMarker } from './audio_device.png';
 export { default as ElevatorMarker } from './elevator.png';
 export { default as CurrentMarker } from './current.png';
@@ -15,3 +16,6 @@ export { default as ClusterMarker1 } from './cluster-1.png';
 export { default as ClusterMarker2 } from './cluster-2.png';
 export { default as ClusterMarker3 } from './cluster-3.png';
 export { default as ClusterMarker4 } from './cluster-4.png';
+
+// Admin markers
+export { default as AdminMarker } from './admin.png';
