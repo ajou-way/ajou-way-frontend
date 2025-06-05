@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { IoCloseOutline } from 'react-icons/io5';
 
-import { MarkerType } from '@/pages/type';
+import { FacilityType } from '@/pages/type';
 
 import CategoryButton from '@/components/_common/CategoryButton/CategoryButton';
 
@@ -10,8 +10,8 @@ import { MARKER_TYPE } from '@/constants/barrierFree';
 import * as styles from './CategoryList.styles';
 
 interface CategoryListProps {
-  categories: Record<MarkerType, boolean>;
-  filterCategories: (category: MarkerType) => void;
+  categories: Record<FacilityType, boolean>;
+  filterCategories: (category: FacilityType) => void;
 }
 
 const CategoryList = ({ categories, filterCategories }: CategoryListProps) => {
@@ -33,8 +33,8 @@ const CategoryList = ({ categories, filterCategories }: CategoryListProps) => {
             <li key={key}>
               <CategoryButton
                 value={value}
-                isActive={categories[key as MarkerType]}
-                onClick={() => filterCategories(key as MarkerType)}
+                isActive={categories[key as FacilityType]}
+                onClick={() => filterCategories(key as FacilityType)}
               />
             </li>
           ))}
