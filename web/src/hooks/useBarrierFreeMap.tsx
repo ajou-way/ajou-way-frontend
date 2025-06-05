@@ -3,14 +3,15 @@ import { renderToString } from 'react-dom/server';
 
 import { Facilites, FacilityType } from '@/pages/type';
 
+import InfoWindow from '@/components/_common/InfoWindow/InfoWindow';
 import { Marker } from '@/components/_common/Marker';
 
 import { useMap } from '@/hooks/useMap';
 
-import { MARKER_ICON } from '@/constants/barrierFree';
+import { MARKER_ICON, MARKER_TYPE } from '@/constants/barrierFree';
 
 export const useBarrierFreeMap = (defaultMarkers: Facilites[]) => {
-  const { map, mapRef } = useMap({ latitude: 37.2821, longitude: 127.0463 });
+  const { map, mapRef } = useMap();
 
   const [markers, setMarkers] = useState<naver.maps.Marker[]>([]);
   const [categories, setCategories] = useState<Record<FacilityType, boolean>>({
@@ -43,16 +44,12 @@ export const useBarrierFreeMap = (defaultMarkers: Facilites[]) => {
     initializeMarkers(map, markerData);
   };
 
-  const addMarker = (
-    map: naver.maps.Map,
-    type: FacilityType,
-    latitude: number,
-    longitude: number,
-    buildingName: string
-  ) => {
+  const addMarker = (map: naver.maps.Map, facility: Facilites) => {
+    const { facilityMarkerType: type, geometry } = facility;
+
     const markerOptions = {
       map: map,
-      position: new naver.maps.LatLng(latitude, longitude),
+      position: new naver.maps.LatLng(geometry.coordinates[1], geometry.coordinates[0]),
       icon: {
         content: renderToString(<Marker image={MARKER_ICON[type]} />),
         size: new naver.maps.Size(28, 36),
@@ -64,32 +61,7 @@ export const useBarrierFreeMap = (defaultMarkers: Facilites[]) => {
     const marker = new naver.maps.Marker(markerOptions);
     setMarkers((prev) => [...prev, marker]);
 
-    const infowindow = new naver.maps.InfoWindow({
-      content: renderToString(
-        <div style={{ padding: '5px 8px', fontSize: '10px', color: '#333' }}>
-          <p style={{ fontWeight: 'bold' }}>{buildingName}</p>
-          <p>
-            {type === 'ELEVATOR' && '엘리베이터'}
-            {type === 'IMPAIRMENT_TOILET' && '장애인 화장실'}
-            {type === 'RAMP' && '경사로'}
-            {type === 'NOTE' && '점자블록'}
-            {type === 'AUDIO_DEVICE' && '청각장애인 보조기기'}
-            {type === 'SUPPORT_OFFICE' && '장애인 지원 사무소'}
-          </p>
-        </div>
-      ),
-      borderWidth: 1,
-      borderColor: '#eee',
-      anchorSize: new naver.maps.Size(10, 10),
-    });
-
-    naver.maps.Event.addListener(marker, 'click', function () {
-      if (infowindow.getMap()) {
-        infowindow.close();
-      } else {
-        infowindow.open(map, marker);
-      }
-    });
+    addInfoWindow(map, marker, facility);
   };
 
   const removeMarkers = () => {
@@ -97,18 +69,35 @@ export const useBarrierFreeMap = (defaultMarkers: Facilites[]) => {
     setMarkers([]);
   };
 
-  const initializeMarkers = (map: naver.maps.Map, markerData: Facilites[]) => {
+  const initializeMarkers = (map: naver.maps.Map, facilites: Facilites[]) => {
     removeMarkers();
 
-    markerData.forEach((marker) => {
-      console.log(marker.facilityMarkerType, marker.geometry.coordinates[1], marker.geometry.coordinates[0]);
-      addMarker(
-        map,
-        marker.facilityMarkerType,
-        marker.geometry.coordinates[1],
-        marker.geometry.coordinates[0],
-        marker.buildingName
-      );
+    facilites.forEach((facility) => {
+      addMarker(map, facility);
+    });
+  };
+
+  // @MEMO: 마커 위에 InfoWindow 생성
+  const addInfoWindow = (map: naver.maps.Map, marker: naver.maps.Marker, facility: Facilites) => {
+    const { facilityMarkerType: type, buildingName } = facility;
+
+    const content = renderToString(
+      <InfoWindow title={buildingName}>
+        <p>{MARKER_TYPE[type]}</p>
+      </InfoWindow>
+    );
+
+    const infowindow = new naver.maps.InfoWindow({
+      content,
+      backgroundColor: 'transparent',
+      borderColor: 'transparent',
+      anchorSize: new naver.maps.Size(5, 5),
+      anchorColor: 'transparent',
+    });
+
+    naver.maps.Event.addListener(marker, 'click', () => {
+      if (infowindow.getMap()) infowindow.close();
+      else infowindow.open(map, marker);
     });
   };
 

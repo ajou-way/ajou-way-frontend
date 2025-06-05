@@ -9,7 +9,7 @@ import * as S from './BuildingDetail.styles';
 
 const TAB_ITEM = {
   INFORMATION: '건물 정보',
-  DOOR: '출입문 정보',
+  ENTRANCE: '출입문 정보',
   RESTAURANT: '식당',
   CONVENIENCE_STORE: '편의점',
   PARKING: '주차장',

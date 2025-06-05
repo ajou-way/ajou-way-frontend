@@ -1,4 +1,10 @@
+import { Link } from 'react-router';
+
+import { PATH } from '@/constants/routes';
+
 import GoogleLogo from '@/assets/google.png';
+
+import { css } from '../../../styled-system/css';
 
 import * as styles from './Landing.styles';
 
@@ -35,6 +41,11 @@ const Landing = () => {
           <img src={GoogleLogo} alt="구글 로고" className={styles.googleLogo} />
           구글 이메일로 시작하기
         </button>
+        <Link to={PATH.MAIN_MAP}>
+          <button className={css({ color: '{colors.grey.600}', textStyle: 'lg', textDecoration: 'underline' })}>
+            비회원으로 시작하기
+          </button>
+        </Link>
       </div>
     </div>
   );
