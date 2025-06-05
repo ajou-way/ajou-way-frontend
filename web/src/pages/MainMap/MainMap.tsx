@@ -25,7 +25,7 @@ const MainMap = () => {
   const { isOpen: isSearchBarOpen, open: openSearchBar, close: closeSearchBar } = useIsOpen();
   const { isOpen: isRoutingBarOpen, open: openRoutingBar, close: closeRoutingBar } = useIsOpen();
 
-  const { map, mapRef, addMarker, addClusterMarker, addAdminMarker } = useMainMap();
+  const { map, mapRef, addBuildingMarker, addClusterMarker, addAdminMarker } = useMainMap();
 
   const handleRoutingClick = (building: Building) => {
     setDepartureBuilding(building);
@@ -56,10 +56,7 @@ const MainMap = () => {
     const markers: naver.maps.Marker[] = [];
 
     buildings.forEach((building) => {
-      const marker = addMarker(map, building.geometry.coordinates[1], building.geometry.coordinates[0], () =>
-        handleOpenModal(building)
-      );
-
+      const marker = addBuildingMarker(map, building, () => handleOpenModal(building));
       markers.push(marker);
     });
 
@@ -73,15 +70,7 @@ const MainMap = () => {
     if (!map) return;
     if (adminMarkers.length === 0) return;
 
-    adminMarkers.forEach((marker) => {
-      addAdminMarker(
-        map,
-        marker.geometry.coordinates[1],
-        marker.geometry.coordinates[0],
-        marker.title,
-        marker.contents
-      );
-    });
+    adminMarkers.forEach((adminMarker) => addAdminMarker(map, adminMarker));
   }, [map, adminMarkers]);
 
   return (

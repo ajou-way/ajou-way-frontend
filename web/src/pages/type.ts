@@ -49,7 +49,7 @@ export interface Facilites {
   buildingName: string;
 }
 
-export interface Admin {
+export interface TAdminMarker {
   title: string;
   contents: string;
   geometry: {

@@ -1,4 +1,4 @@
-import { MarkerDetail, Building, BuildingDetail, Facilites, Admin } from '@/pages/type';
+import { MarkerDetail, Building, BuildingDetail, Facilites, TAdminMarker } from '@/pages/type';
 
 import fetcher from '@/apis/fetcher';
 
@@ -15,7 +15,7 @@ export const getBarrierFreeMarkers = async () => {
 };
 
 export const getAdminMarkers = async () => {
-  return await fetcher.get<{ result: Admin[] }>({ endpoint: '/api/maps/markers' });
+  return await fetcher.get<{ result: TAdminMarker[] }>({ endpoint: '/api/maps/markers' });
 };
 
 export const getAutoCompleteResults = async (keyword: string) => {

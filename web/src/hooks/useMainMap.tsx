@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { renderToString } from 'react-dom/server';
 
+import { Building, TAdminMarker } from '@/pages/type';
+
+import InfoWindow from '@/components/_common/InfoWindow/InfoWindow';
 import { Marker, ClusterMarker } from '@/components/_common/Marker';
 
 import { useMap } from '@/hooks/useMap';
@@ -23,10 +26,12 @@ declare global {
 export const useMainMap = () => {
   const { map, mapRef } = useMap();
 
-  const addMarker = (map: naver.maps.Map, latitude: number, longitude: number, onClick: () => void) => {
+  const addBuildingMarker = (map: naver.maps.Map, building: Building, onClick: () => void) => {
+    const { geometry } = building;
+
     const markerOptions = {
       map: map,
-      position: new naver.maps.LatLng(latitude, longitude),
+      position: new naver.maps.LatLng(geometry.coordinates[1], geometry.coordinates[0]),
       icon: {
         content: renderToString(<Marker image={BuildingMarker} />),
         size: new naver.maps.Size(28, 36),
@@ -72,16 +77,13 @@ export const useMainMap = () => {
     });
   };
 
-  const addAdminMarker = (
-    map: naver.maps.Map,
-    latitude: number,
-    longitude: number,
-    title: string,
-    contents: string
-  ) => {
+  // @MEMO: 관리자 마커 생성
+  const addAdminMarker = (map: naver.maps.Map, adminMarker: TAdminMarker) => {
+    const { geometry } = adminMarker;
+
     const markerOptions = {
       map: map,
-      position: new naver.maps.LatLng(latitude, longitude),
+      position: new naver.maps.LatLng(geometry.coordinates[1], geometry.coordinates[0]),
       icon: {
         content: renderToString(<Marker image={AdminMarker} />),
         size: new naver.maps.Size(28, 36),
@@ -92,26 +94,32 @@ export const useMainMap = () => {
 
     const marker = new naver.maps.Marker(markerOptions);
 
+    addAdminInfoWindow(map, marker, adminMarker);
+  };
+
+  // @MEMO: 관리자 마커 위에 InfoWindow 생성
+  const addAdminInfoWindow = (map: naver.maps.Map, marker: naver.maps.Marker, adminMarker: TAdminMarker) => {
+    const { title, contents } = adminMarker;
+
+    const content = renderToString(
+      <InfoWindow title={title}>
+        <p>{contents}</p>
+      </InfoWindow>
+    );
+
     const infowindow = new naver.maps.InfoWindow({
-      content: renderToString(
-        <div style={{ padding: '5px 8px', fontSize: '10px', color: '#333' }}>
-          <p style={{ fontWeight: 'bold' }}>{title}</p>
-          <p>{contents}</p>
-        </div>
-      ),
-      borderWidth: 1,
-      borderColor: '#eee',
-      anchorSize: new naver.maps.Size(10, 10),
+      content,
+      backgroundColor: 'transparent',
+      borderColor: 'transparent',
+      anchorSize: new naver.maps.Size(5, 5),
+      anchorColor: 'transparent',
     });
 
-    naver.maps.Event.addListener(marker, 'click', function () {
-      if (infowindow.getMap()) {
-        infowindow.close();
-      } else {
-        infowindow.open(map, marker);
-      }
+    naver.maps.Event.addListener(marker, 'click', () => {
+      if (infowindow.getMap()) infowindow.close();
+      else infowindow.open(map, marker);
     });
   };
 
-  return { map, mapRef, addMarker, addClusterMarker, addAdminMarker };
+  return { map, mapRef, addBuildingMarker, addClusterMarker, addAdminMarker };
 };
