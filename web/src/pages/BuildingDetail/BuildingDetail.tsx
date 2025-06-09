@@ -43,10 +43,10 @@ const BuildingDetail = () => {
       </div>
       <div className={S.header}>
         <h1 className={S.title}>{buildingDetail?.name}</h1>
-        <img
+        {/* <img
           src="https://i.namu.wiki/i/eS12uEAhzad9c3I-ju-LI2uh6SeH_hxTDCmA9-0oCf8lNZ4Iy_QSWK73m_UPWyOri0lvTSyQwfZ_8NlDOj5wsw.webp"
           className={S.image}
-        />
+        /> */}
       </div>
       <div className={S.tab}>
         {Object.entries(TAB_ITEM).map(([key, value]) => (
