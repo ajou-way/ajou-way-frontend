@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
+import Dropdown from '@/components/SignUp/Dropdown/Dropdown';
+
 import { useAuthMutation } from '@/queries/useAuthMutation';
 // import { useAuthQuery } from '@/queries/useAuthQuery';
 
@@ -64,18 +66,19 @@ const SignUp = () => {
         </div> */}
         <div className={styles.container}>
           <p>학과 정보</p>
-          <input
+          {/* <input
             type="text"
             placeholder="학과를 입력하세요"
             className={styles.input}
             value={major}
             onChange={(e) => setMajor(e.target.value)}
-          />
+          /> */}
+          <Dropdown major={major} onSelect={setMajor} />
         </div>
         <div className={styles.container}>
           <p>학번</p>
           <input
-            type="text"
+            type="number"
             placeholder="학번을 입력하세요"
             className={styles.input}
             value={studentId}

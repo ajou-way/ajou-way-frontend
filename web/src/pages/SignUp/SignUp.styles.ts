@@ -47,14 +47,14 @@ export const input = css({
   w: '100%',
   h: '4rem',
   px: '1rem',
-  border: '1px solid {colors.gray.200}',
+  border: '1px solid {colors.grey.200}',
   rounded: 'lg',
 
   textStyle: 'lg',
 
   _disabled: {
-    bg: '{colors.gray.100}',
-    color: '{colors.gray.500}',
+    bg: '{colors.grey.100}',
+    color: '{colors.grey.500}',
 
     cursor: 'not-allowed',
   },
